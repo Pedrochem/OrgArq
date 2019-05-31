@@ -9,7 +9,7 @@ public class Registers{
 
     public void setReg(int regNumber, int value){
         if (regNumber==0){
-            System.out.println("Error, cannot modify reg 0")
+            System.out.println("Error, cannot modify reg 0");
             return;
         }  
         reg[regNumber]=value;
