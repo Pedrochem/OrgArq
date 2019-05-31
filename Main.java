@@ -17,5 +17,42 @@
 // 6. Show execution on screen.
 
 public class Main{
+   
+    
 
+
+
+
+    public String decode(String instruction){
+        String opcode =  instruction.substring(0, 6);
+
+        switch (opcode){
+            case "001111":
+                return "lui";
+
+            case "001101":
+                return "ori";
+
+            case "":
+                return "";
+
+            case " ":
+                return " ";
+            
+            case "  ":
+                return "  ";
+         
+           case "   ":
+                return "   ";
+        
+        
+        
+            }
+        
+        
+        
+        return "";
+
+
+    }
 }
