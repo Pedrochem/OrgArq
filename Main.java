@@ -10,7 +10,7 @@
 **************************************************************/
 
 // 1. Open .mips file
-// 2. Decode commands (from hexadecimal to binary)
+// 2. Decode commands (from 'File'.mips)
 // 3. Initialize Registers
 // 4. Initialize Memory
 // 5. Start execution (simulation)
