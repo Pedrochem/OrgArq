@@ -23,7 +23,7 @@ public class Main{
 
 
 
-    public String decode(String instruction){
+    public static String decode(String instruction){
         String opcode =  instruction.substring(0, 6);
 
         switch (opcode){
@@ -33,8 +33,11 @@ public class Main{
             case "001101":
                 return "ori";
 
-            case "":
-                return "";
+            case "000000":
+                String funct = instruction.substring(26);   
+                if (funct.equals("100001"))
+                    return "addu";
+                
 
             case " ":
                 return " ";
@@ -55,4 +58,11 @@ public class Main{
 
 
     }
-}
+
+    public static void main(String[] args) {
+        //Testando ADDU 
+        String allInst = "00000011000011111100100000100001";
+        Controller controller = new Controller(decode(allInst), allInst);
+    }
+        
+}   

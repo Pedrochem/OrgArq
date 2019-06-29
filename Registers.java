@@ -4,7 +4,7 @@ public class Registers{
 
     public Registers(){
         reg = new int[32];
-        reg[0]=0;
+        initialize();
     }
 
     public void setReg(int regNumber, int value){
