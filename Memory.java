@@ -32,4 +32,8 @@ public class Memory {
     public int getSize(){
         return mem.length;
     }
+
+    public String fetch(int pos){
+        return mem[pos];
+    }
 }

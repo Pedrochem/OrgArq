@@ -24,14 +24,12 @@ public class Controller{
 
     public void run(){
         System.out.println("-----------------------");
-        System.out.println("Instrução: "+inst);
+        System.out.println("Instrução: " + inst);
 
        switch (inst) {
            case "addu":
                
-            
            ;
-       
            default:
                break;
        } 

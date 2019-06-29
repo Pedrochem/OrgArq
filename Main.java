@@ -48,6 +48,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         //Testando ADDU 
         Memory mem = new Memory("input.mips");
+        int pc = 0;
         String allInst = "00000011000011111100100000100001";
         Controller controller = new Controller(decode(allInst), allInst);
     }
