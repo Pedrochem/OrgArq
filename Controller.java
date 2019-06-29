@@ -26,7 +26,15 @@ public class Controller{
         System.out.println("-----------------------");
         System.out.println("Instrução: "+inst);
 
-        System.out.println("Etapa 1:");
+       switch (inst) {
+           case "addu":
+               
+            
+           ;
+       
+           default:
+               break;
+       } 
 
 
 
