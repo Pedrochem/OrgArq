@@ -61,6 +61,7 @@ public class Main{
 
     public static void main(String[] args) {
         //Testando ADDU 
+        Memory mem = new Memory("input.mips");
         String allInst = "00000011000011111100100000100001";
         Controller controller = new Controller(decode(allInst), allInst);
     }

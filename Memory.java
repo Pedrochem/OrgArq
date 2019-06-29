@@ -1,12 +1,13 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Memory{
+public class Memory {
     private String[] mem;
     public HashMap<String, Integer> labels;
 
-    public Memory(String fileName){
+    public Memory(String fileName) throws FileNotFoundException {
         mem = new String[100];
         labels = new HashMap<String, Integer>();
 
@@ -24,7 +25,7 @@ public class Memory{
                 mem[i] = line;
             i++;
         }
-        memSize = i;
+        
         f.close();
     }
 

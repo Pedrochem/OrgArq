@@ -1,6 +1,9 @@
 public class Teste{
     public static void main(String[] args) {
-        int x = 0b010;
-        System.out.println(Integer.toBinaryString(x));
+        String line = "label: 1000110101";
+        String line2 = "1000110101";
+
+        String[] campos = line2.split(":");
+        System.out.println(campos[0]);
     } 
 }
