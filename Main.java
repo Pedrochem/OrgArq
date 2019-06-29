@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 public class Main {
 
     public static String decode(String instruction) {
-        String opcode = instruction.substring(0, 6);
+        String opcode = instruction.substring(0, 5);
 
         switch (opcode) {
         case "001111":
@@ -46,10 +46,23 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        //Testando ADDU 
-        Memory mem = new Memory("input.mips");
-        String allInst = "00000011000011111100100000100001";
-        Controller controller = new Controller(decode(allInst), allInst);
+        Controller controller;
+        int pc=0;
+        //Memory mem = new Memory("input.mips");
+
+        while (true){
+            //Testando ADDU
+            System.out.println("---------------------------------"); 
+            System.out.println("Etapa 1:");
+            System.out.println("IR = Mem["+pc+"] | PC = "+ (++pc) + "");
+
+            String allInst = "00000001011010110101100000100001"; //mem.fetch(pc);
+
+            controller =  new Controller(decode(allInst), allInst, pc);
+            break;
+        }
+       
+        
     }
         
 }   
