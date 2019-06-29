@@ -15,35 +15,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
 
-    public static String decode(String instruction) {
-        String opcode = instruction.substring(0, 5);
-
-        switch (opcode) {
-        case "001111":
-            return "lui";
-
-        case "001101":
-            return "ori";
-
-        case "000000":
-            String funct = instruction.substring(26);
-            if (funct.equals("100001"))
-                return "addu";
-
-        case " ":
-            return " ";
-
-        case "  ":
-            return "  ";
-
-        case "   ":
-            return "   ";
-
-        }
-
-        return "";
-
-    }
+   
 
     public static void main(String[] args) throws FileNotFoundException {
         Controller controller;
@@ -56,9 +28,9 @@ public class Main {
             System.out.println("Etapa 1:");
             System.out.println("IR = Mem["+pc+"] | PC = "+ (++pc) + "");
 
-            String allInst = "00000001011010110101100000100001"; //mem.fetch(pc);
+            String inst = "00000001011010110101100000100001"; //mem.fetch(pc);
 
-            controller =  new Controller(decode(allInst), allInst, pc);
+            controller =  new Controller(inst, pc);
             break;
         }
        

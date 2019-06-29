@@ -1,6 +1,6 @@
 public class Controller{
+    
     private String inst;
-    private String allInst;
     private boolean pcEscCond;
     private boolean pcEsc;
     private boolean louD;
@@ -19,40 +19,59 @@ public class Controller{
     int aluOut;
     
 
-    public Controller(String inst, String allInst, int pc){
+    public Controller(String inst, int pc){
         this.inst = inst;
-        this.allInst = allInst;
         run(pc);
         
     }
 
+
+
     public void run(int pc){
         System.out.println("---------------------------------");
         System.out.println("Etapa 2: ");
-        regA = Integer.parseInt(allInst.substring(6,11),2);
-        regB = Integer.parseInt(allInst.substring(11,16),2);
-        aluOut = Integer.parseInt(allInst.substring(6),2);
-
-        System.out.println("RegA = "+regA+" | RegB = "+regB+" | ALUOut = "+aluOut);
+        regA = Integer.parseInt(inst.substring(6,11),2);
+        regB = Integer.parseInt(inst.substring(11,16),2);
+        aluOut = Integer.parseInt(inst.substring(6),2);
+        String operation = decode(inst);
         
-
-       switch (inst) {
-            case "addu":
-                break;
-               
-            
-           
-       
-           default:
-               break;
-       } 
-
+        System.out.println("RegA = "+regA+" | RegB = "+regB+" | ALUOut = "+aluOut+" | Operation = "+operation);
+        
 
 
     }
 
 
+    public  String decode(String instruction) {
+        String opcode = instruction.substring(0, 6);
+        switch (opcode) {
+        case "001111":
+            return "lui";
+        case "001101":
+            return "ori";
+        case "000000":
+            String funct = instruction.substring(26);
+            if (funct.equals("100001"))
+                return "addu";
+        case " ":
+            return " ";
+        case "  ":
+            return "  ";
+        case "   ":
+            return "   ";
+        }
+        return "";
+    }
 
-
-
+    public String getTipo(String op){
+        switch (op) {
+            case "":
+                
+                break;
+        
+            default:
+                break;
+        }
+    }
+    
 }
