@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Memory {
     private String[] mem;
     public HashMap<String, Integer> labels;
+    private int size;
 
     public Memory(String fileName) throws FileNotFoundException {
         mem = new String[100];
@@ -25,12 +26,12 @@ public class Memory {
                 mem[i] = line;
             i++;
         }
-        
+        size = i;
         f.close();
     }
 
     public int getSize(){
-        return mem.length;
+        return size;
     }
 
     public String fetch(int pos){

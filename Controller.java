@@ -39,6 +39,10 @@ public class Controller {
 
     public boolean buscaInstrucao(){
         //ETAPA 1
+       
+        if (pc>=mem.getSize())
+            throw new NullPointerException(); 
+
         pcEsc = "1";
         lerMem = "1";
         louD = "0";
@@ -67,12 +71,15 @@ public class Controller {
         ulaFonteA = "0";
         chamaUla();     //ALUOut = Branch Adress (Just in case)
 
-        regA = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regA = rs (Just in case)
-        regB = regs.getValue(Integer.parseInt(inst.substring(16,21),2));  //regB = rt (Just in case)
+
+        regA = regs.getValue(Integer.parseInt(inst.substring(6,11),2));  //regA = rs (Just in case)
+        regB = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regB = rt (Just in case)
+        
         operation = decode(inst);
         
         System.out.println("---------------------------------");
         System.out.println("Etapa 2: ");
+
         System.out.println("RegA = " + regA + " | RegB = " + regB + " | ALUOut = " + ulaSaida + " | Operation = " + operation);
         
         return false;
@@ -106,7 +113,11 @@ public class Controller {
                 break;
 
             case "branch":
-                ulaSaida = ula.executa(regA, regB, "sub");
+                ulaFonteA = "1";
+                ulaFonteB = "00";
+                ulaOp = "sub";
+                chamaUla();
+
                 if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
                     System.out.println("Os registradores são iguais, logo branch executada");
@@ -183,18 +194,9 @@ public class Controller {
             default:
                 break;
         }
-
-        switch (ulaOp) {
-            case "00":
-                
-                break;
-        
-            default:
-                break;
-        }
-        //System.out.println("Ula, OP1:"+src1+" OP2:"+src2);
+       
         ulaSaida = ula.executa(src1, src2, ulaOp);
-        //System.out.println("Result: "+ulaSaida);
+       
 
     }
 

@@ -67,8 +67,17 @@ public class MaquinaEstados {
         else{
             estadoAtual = busca;
             System.out.println("Instrução finalizada, buscando nova instrução");
-            System.out.println("Estado atual = "+estadoAtual);
-            return imBusca;
+
+            try {
+                System.out.println("Estado atual = "+estadoAtual);
+                acabouInst = controller.buscaInstrucao();
+                return imBusca;
+           
+            } catch (Exception e) {
+                System.out.println("Terminou o programa");
+                return imAcabou;
+            }
+           
         }
             
 
