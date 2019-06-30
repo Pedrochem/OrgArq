@@ -5,8 +5,8 @@ public class Controller {
     private String inst;
     private int pc;
     private int pcAntigo;
-    private String pcEscCond;
-    private String pcEsc;
+    private boolean pcEscCond;
+    private boolean pcEsc;
     private String louD;
     private String lerMem;
     private String escMem;
@@ -19,6 +19,7 @@ public class Controller {
     private String escReg;
     private String regDest;
     private Ula ula;
+    private boolean zero;
     int regA;
     int regB;
     String ulaSaida;
@@ -43,13 +44,18 @@ public class Controller {
         if (pc>=mem.getSize())
             throw new NullPointerException(); 
 
-        pcEsc = "1";
+        pcEsc = true;
+        pcEscCond = false;
+        fontePc = "01";
+
         lerMem = "1";
         louD = "0";
         irEsc = "1";
         ulaFonteA = "0";
         ulaFonteB = "01";
         ulaOp = "soma";
+
+
 
         pcAntigo = pc;
         chamaMemoria();
@@ -116,7 +122,13 @@ public class Controller {
                 ulaFonteA = "1";
                 ulaFonteB = "00";
                 ulaOp = "sub";
+                
+                fontePc = "01";
+                pcEscCond = true;
+                pcEsc = false;
+
                 chamaUla();
+                chamaPc();
 
                 if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
@@ -138,8 +150,18 @@ public class Controller {
     }
     
     public void chamaPc(){
-        if (pcEsc.equals("1"))
-            pc = Integer.parseInt(ulaSaida);
+        if (pcEsc || (pcEscCond && zero)){
+            switch (fontePc) {
+                case "01":
+                    pc = Integer.parseInt(ulaSaida);
+                    break;
+            
+                case "10":
+                    //TODO
+                    break;
+            }
+        }
+            
     }
 
 
@@ -196,6 +218,10 @@ public class Controller {
         }
        
         ulaSaida = ula.executa(src1, src2, ulaOp);
+        if (ulaSaida.equals("0"))
+            zero = true;
+        else
+            zero = false;
        
 
     }
