@@ -33,12 +33,14 @@ public class MaquinaEstados {
     }
 
     public Image getProxEstado(){
+        
         if (!acabouInst){
             switch (estadoAtual) {
 
                 case busca:
                     acabouInst = controller.decodificaInstrucao();
                     estadoAtual = decodifica;
+                    System.out.println("Estado atual = "+estadoAtual);
                     return imDecodifica;
                     
                 case decodifica:
@@ -48,6 +50,7 @@ public class MaquinaEstados {
                     switch (tipo) {
                         case "branch":
                             estadoAtual = executaBranch;
+                            System.out.println("Estado atual = "+estadoAtual);
                             return imExecutaBranch;
                             
                     
@@ -62,8 +65,10 @@ public class MaquinaEstados {
         }
         
         else{
-            System.out.println("Terminou");
-            return imAcabou;
+            estadoAtual = busca;
+            System.out.println("Instrução finalizada, buscando nova instrução");
+            System.out.println("Estado atual = "+estadoAtual);
+            return imBusca;
         }
             
 

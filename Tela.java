@@ -44,6 +44,7 @@ public class Tela extends Application {
         //Taking care of button
         button.setOnAction(e -> {
             clock++;
+            System.out.println("cliquei no botao");
             selectedImage.setImage(maqEstados.getProxEstado());
 
         });

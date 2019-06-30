@@ -39,10 +39,9 @@ public class Ula{
             case "and":
                 return String.valueOf(srcA & srcB);
             case "sub":
-                System.out.println("to aqui");
                 return String.valueOf(srcA-srcB);
             }
-        System.out.println("nao fiz nada "+op);
+        
         return "";
     }
 

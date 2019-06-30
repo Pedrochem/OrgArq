@@ -83,7 +83,6 @@ public class Controller {
         System.out.println("---------------------------------");
         System.out.println("Etapa 3: ");
 
-
         tipo = getTipo();
         switch(tipo){
             case "tipo_r":
@@ -110,11 +109,14 @@ public class Controller {
                 ulaSaida = ula.executa(regA, regB, "sub");
                 if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
-                    System.out.println("Os registradores são iguais");
+                    System.out.println("Os registradores são iguais, logo branch executada");
+                    System.out.println("PC = SaidaUla ("+ulaSaida+")");
                 }
-                    
-                System.out.println("nao funciono"+ula.executa(regA, regB, "sub"));
-                System.out.println("Saida da Ula = "+ulaSaida+" logo branch executada");
+                else {
+                    System.out.println("Os registradores não são iguais, logo branch não executada");
+                    System.out.println("PC = PC ("+pc+")");
+                }
+            
                 return true;
                 
             default:
@@ -230,14 +232,13 @@ public class Controller {
     }
 
     public String getTipo(){
-        System.out.println("AOE");
+
         switch (operation) {
             case "lw":
                 return "load";
             case "sw":
                 return "store";
             case "beq":
-                System.out.println("eueueu");
                 return "branch";
             case "j":
                 return "jump";
