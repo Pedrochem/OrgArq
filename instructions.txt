@@ -1,12 +1,23 @@
-(addu)  000000 (20x0) 100001
+TIPO Load:
+(lw)    100011 (5 rs) (5 rt) (16 offset)
+
+TIPO Store:
+(sw)    101011 (5 rs) (5 rt) (16 offset)
+
+TIPO Branch:
+(beq)   000100 (5 rs) (5 rt) (16 offset)
+
+TIPO Non-register jump:
+(j)     000010 (26 target)
+
+TIPO I:
 (addiu) 001000 (5 rs) (5 rt) (16 imm)
 (lui)   001111 00000  (5 rt) (16 imm)
 (ori)   001101 (5 rs) (5 rt) (16 imm)
-(lw)    100011 (5 rs) (5 rt) (16 offset)
-(sw)    101011 (5 rs) (5 rt) (16 offset)
-(beq)   000100 (5 rs) (5 rt) (16 offset)
+
+TIPO R:
+(addu)  000000 (20x0) 100001
 (slt)   000000 (5 rs) (5 rt) (5 rd) 00000 101011
-(j)     000010 (26 target)
 (and)   000000 (5 rs) (5 rt) (5 rd) 00000 100100
 (sll)  	000000 00000 (5 rt) (5 rd) (5 shamt) 000000
 (srl)   000000 00000 (5 rt) (5 rd) (5 shamt) 000010
