@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         Controller controller;
-        int pc=0;
+        
         //Memory mem = new Memory("input.mips");
 
         while (true){
@@ -28,7 +28,7 @@ public class Main {
 
             String inst = "00000001011010110101100000100001"; //mem.fetch(pc);
 
-            controller =  new Controller(inst, pc);
+            controller =  new Controller("mipsProgram.mips");
             break;
         }
        
