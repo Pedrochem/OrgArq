@@ -41,7 +41,7 @@ public class Controller {
     public boolean buscaInstrucao(){
         //ETAPA 1
        
-        if (pc>=mem.getSize())
+        if (pc>=mem.getInstructionSize())
             throw new NullPointerException(); 
 
         pcEsc = true;
