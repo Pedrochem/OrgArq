@@ -18,7 +18,8 @@ public class Controller{
     int regA;
     int regB;
     int aluOut;
-    
+    int shamt;
+
     public Controller(String inst, int pc){
         ula = new Ula();
         this.inst = inst;
@@ -40,10 +41,10 @@ public class Controller{
         String tipo = getTipo(operation);
         switch(tipo){
             case "tipo_r":
-                
-
-
-
+                ula.tipoR(regA, regB, operation);
+                break;
+            case "tipo_r_shamt":
+                ula.tipoRShamt(regA, operation, shamt);
                 break;
             case "tipo_i":
                 break;
@@ -77,8 +78,11 @@ public class Controller{
                     return "slt";
                 else if(funct.equals("100100"))
                     return "and";
-                else if(funct.equals("000000"))
+                else if(funct.equals("000000")){
+                    String strShamt = instruction.substring(21, 25); 
+                    shamt = Integer.
                     return "sll";
+                }
                 else if(funct.equals("000010"))
                     return "srl";
             case "000010":
