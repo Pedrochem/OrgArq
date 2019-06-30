@@ -24,9 +24,7 @@ public class Main {
 
         while (true){
             //Testando ADDU
-            System.out.println("---------------------------------"); 
-            System.out.println("Etapa 1:");
-            System.out.println("IR = Mem["+pc+"] | PC = "+ (++pc) + "");
+           
 
             String inst = "00000001011010110101100000100001"; //mem.fetch(pc);
 

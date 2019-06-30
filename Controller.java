@@ -1,6 +1,7 @@
 public class Controller{
     
     private String inst;
+    private int pc;
     private boolean pcEscCond;
     private boolean pcEsc;
     private boolean louD;
@@ -18,15 +19,22 @@ public class Controller{
     int regA;
     int regB;
     int aluOut;
-    int shamt;
-
+    
     public Controller(String inst, int pc){
         ula = new Ula();
         this.inst = inst;
-        run(pc);
+        this.pc = pc;
+        buscaInstrucao();
     }
 
-    public void run(int pc){
+
+    public void buscaInstrucao(){
+         System.out.println("---------------------------------"); 
+         System.out.println("Etapa 1:");
+         System.out.println("IR = Mem["+pc+"] | PC = "+ (++pc) + "");
+    }
+
+    public void decodificaInstrucao(int pc){
         //ETAPA 2
         System.out.println("---------------------------------");
         System.out.println("Etapa 2: ");
@@ -41,10 +49,7 @@ public class Controller{
         String tipo = getTipo(operation);
         switch(tipo){
             case "tipo_r":
-                ula.tipoR(regA, regB, operation);
-                break;
-            case "tipo_r_shamt":
-                ula.tipoRShamt(regA, operation, shamt);
+
                 break;
             case "tipo_i":
                 break;
@@ -78,11 +83,8 @@ public class Controller{
                     return "slt";
                 else if(funct.equals("100100"))
                     return "and";
-                else if(funct.equals("000000")){
-                    String strShamt = instruction.substring(21, 25); 
-                    shamt = Integer.
+                else if(funct.equals("000000"))
                     return "sll";
-                }
                 else if(funct.equals("000010"))
                     return "srl";
             case "000010":
