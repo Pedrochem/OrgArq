@@ -20,6 +20,7 @@ public class Controller {
     private String regDest;
     private Ula ula;
     private boolean zero;
+    private String ulaSaidaAntiga;
     int regA;
     int regB;
     String ulaSaida;
@@ -35,6 +36,7 @@ public class Controller {
         regs = new Registers();
         mem = new Memory(file);
         pc=0;
+        ulaSaida = "";
     }
 
 
@@ -46,7 +48,7 @@ public class Controller {
 
         pcEsc = true;
         pcEscCond = false;
-        fontePc = "01";
+        fontePc = "00";
 
         lerMem = "1";
         louD = "0";
@@ -98,12 +100,31 @@ public class Controller {
 
         tipo = getTipo();
         switch(tipo){
-            case "tipo_r":
-                if (operation.equals("addu"))
-                    ulaSaida = ula.executa(regA, regB, "soma");
-                else if (operation.equals("and"))
-                    ulaSaida = ula.executa(regA, regB, "and");
-                break;
+            case "tipoR":
+                ulaFonteA = "1";
+                ulaFonteB = "00";
+                
+                switch (operation) {
+                    case "addu":
+                        ulaOp = "soma";
+                        chamaUla();
+                        break;
+                    case "and":
+                        ulaOp = "and";
+                        chamaUla();
+                        break;  
+                    case "sll":
+                        ulaOp = "sll";
+                        chamaUla();
+                        break;
+                    case "srl":
+                        ulaOp = "srl";
+                        chamaUla();
+                        break;
+                }
+
+                System.out.println("Saida da ula: "+ulaSaida);
+                return false;
 
             case "tipo_i":
                 //TODO   
@@ -126,14 +147,14 @@ public class Controller {
                 fontePc = "01";
                 pcEscCond = true;
                 pcEsc = false;
-
-                chamaUla();
+            
                 chamaPc();
+                chamaUla();
 
                 if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
                     System.out.println("Os registradores são iguais, logo branch executada");
-                    System.out.println("PC = SaidaUla ("+ulaSaida+")");
+                    System.out.println("PC = SaidaUla ("+ulaSaidaAntiga+")");
                 }
                 else {
                     System.out.println("Os registradores não são iguais, logo branch não executada");
@@ -152,9 +173,11 @@ public class Controller {
     public void chamaPc(){
         if (pcEsc || (pcEscCond && zero)){
             switch (fontePc) {
-                case "01":
+                case "00":
                     pc = Integer.parseInt(ulaSaida);
                     break;
+                case "01":
+                    pc = Integer.parseInt(ulaSaidaAntiga);
             
                 case "10":
                     //TODO
@@ -216,14 +239,14 @@ public class Controller {
             default:
                 break;
         }
-       
+        ulaSaidaAntiga = ulaSaida;
+        
         ulaSaida = ula.executa(src1, src2, ulaOp);
+       
         if (ulaSaida.equals("0"))
             zero = true;
         else
             zero = false;
-       
-
     }
 
     public String decode(String instruction) {
@@ -274,11 +297,9 @@ public class Controller {
             case "lui":
             case "ori":
                 return "tipo_i";
-            case "sll":
-            case "srl":
-                return "tipo_r_shamt";
+            
             default:
-                return "tipo_r";
+                return "tipoR";
         }
     }
     

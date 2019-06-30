@@ -40,6 +40,11 @@ public class Ula{
                 return String.valueOf(srcA & srcB);
             case "sub":
                 return String.valueOf(srcA-srcB);
+            case "sll":
+                return String.valueOf(srcA << srcB);
+            case "srl":
+                return String.valueOf(srcA >> srcB);
+            
             }
         
         return "";

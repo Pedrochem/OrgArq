@@ -9,6 +9,7 @@ public class MaquinaEstados {
     private Image imBusca = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/busca.png"));
     private Image imDecodifica = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/decodifica.png"));
     private Image imExecutaBranch = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/executaBranch.png"));
+    private Image imExecutaTipoR = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/executaTipoR.png"));
 
     private Image imAcabou = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/acabou.png"));
 
@@ -52,15 +53,12 @@ public class MaquinaEstados {
                             estadoAtual = executaBranch;
                             System.out.println("Estado atual = "+estadoAtual);
                             return imExecutaBranch;
-                            
-                    
-                        default:
-                            //TODO
-                            return imExecutaBranch;
+
+                        case "tipoR":
+                            estadoAtual = executaTipoR;
+                            System.out.println("Estado atual = "+estadoAtual);
+                            return imExecutaTipoR;
                     }
-    
-                default:
-                    return imBusca;
             }
         }
         
@@ -79,12 +77,7 @@ public class MaquinaEstados {
             }
            
         }
-            
-
-        
-       
-        
-
+        return imAcabou;   
     }
 
 }
