@@ -5,12 +5,17 @@ import java.util.Scanner;
 
 public class Memory {
     private String[] mem;
+    private int instructionSize;
+    private int pc;
+
     public HashMap<String, Integer> labels;
-    private int size;
 
     public Memory(String fileName) throws FileNotFoundException {
-        mem = new String[100];
+        int size = 600;
+	mem = new String[size];
         labels = new HashMap<String, Integer>();
+
+	pc = 400; // 200 slots for stack
 
         Scanner f = new Scanner(new File(fileName));
         String line;
@@ -26,15 +31,25 @@ public class Memory {
                 mem[i] = line;
             i++;
         }
-        size = i;
+        instructionSize = i;
         f.close();
+	while(instructionSize > pc)
+		pc++;
     }
-
-    public int getSize(){
-        return size;
+    public int getInstructionSize(){
+        return instructionSize;
     }
 
     public String fetch(int pos){
         return mem[pos];
     }
+
+    public int getPc(){
+	return mem[pc];
+    }
+
+    public void incPc(){
+	pc++;
+    }
+
 }
