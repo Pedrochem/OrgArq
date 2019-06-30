@@ -44,12 +44,12 @@ public class Memory {
         return mem[pos];
     }
 
-    public int getPc(){
-	return mem[pc];
+    public String getPc(){
+	    return mem[pc];
     }
 
     public void incPc(){
-	pc++;
+	    pc++;
     }
 
 }
