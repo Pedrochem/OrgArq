@@ -26,6 +26,7 @@ public class Controller {
     int posMem;
     String operation;
     Registers regs;
+    String tipo;
 
 
     public Controller(String file) throws FileNotFoundException {
@@ -33,11 +34,10 @@ public class Controller {
         regs = new Registers();
         mem = new Memory(file);
         pc=0;
-        buscaInstrucao();
     }
 
 
-    public void buscaInstrucao(){
+    public boolean buscaInstrucao(){
         //ETAPA 1
         pcEsc = "1";
         lerMem = "1";
@@ -57,10 +57,10 @@ public class Controller {
         System.out.println("---------------------------------"); 
         System.out.println("Etapa 1:");
         System.out.println("IR = Mem["+pcAntigo+"] | PC = "+pc + "");
-        decodificaInstrucao();
+        return false;
     }
 
-    public void decodificaInstrucao(){
+    public boolean decodificaInstrucao(){
         //ETAPA 2
         ulaOp = "soma";
         ulaFonteB = "11";
@@ -75,12 +75,16 @@ public class Controller {
         System.out.println("Etapa 2: ");
         System.out.println("RegA = " + regA + " | RegB = " + regB + " | ALUOut = " + ulaSaida + " | Operation = " + operation);
         
-        executaInstrucao();
+        return false;
     }
 
-    public void executaInstrucao(){
+    public boolean executaInstrucao(){
         //ETAPA 3
-        String tipo = getTipo(operation);
+        System.out.println("---------------------------------");
+        System.out.println("Etapa 3: ");
+
+
+        tipo = getTipo();
         switch(tipo){
             case "tipo_r":
                 if (operation.equals("addu"))
@@ -90,28 +94,35 @@ public class Controller {
                 break;
 
             case "tipo_i":
-                //if (operation.equals("lui")
-                    //todo    
+                //TODO   
                 break;
             case "jump":
+                //TODO
                 break;
             case "store":
+                //TODO
                 break;
             case "load":
+                //TODO
                 break;
+
             case "branch":
                 ulaSaida = ula.executa(regA, regB, "sub");
-                if (ulaSaida.equals("0"))
+                if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
+                    System.out.println("Os registradores são iguais");
+                }
+                    
+                System.out.println("nao funciono"+ula.executa(regA, regB, "sub"));
+                System.out.println("Saida da Ula = "+ulaSaida+" logo branch executada");
+                return true;
                 
-                break;
             default:
-                break;
+                //TODO
+                return false;
         }
-        System.out.println("ULA Saida = "+ulaSaida);
-
-    
-
+        return false;
+    }
     
     public void chamaPc(){
         if (pcEsc.equals("1"))
@@ -218,13 +229,15 @@ public class Controller {
         return "";
     }
 
-    public String getTipo(String op){
-        switch (op) {
+    public String getTipo(){
+        System.out.println("AOE");
+        switch (operation) {
             case "lw":
                 return "load";
             case "sw":
                 return "store";
             case "beq":
+                System.out.println("eueueu");
                 return "branch";
             case "j":
                 return "jump";

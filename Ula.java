@@ -38,7 +38,11 @@ public class Ula{
                 return (srcA < srcB) ? "1" : "0";
             case "and":
                 return String.valueOf(srcA & srcB);
+            case "sub":
+                System.out.println("to aqui");
+                return String.valueOf(srcA-srcB);
             }
+        System.out.println("nao fiz nada "+op);
         return "";
     }
 

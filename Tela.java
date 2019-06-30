@@ -18,20 +18,18 @@ public class Tela extends Application {
     int clock = 0;
     Button button;
     ImageView selectedImage;
-    Image busca;
-    Image decodifica; 
+    MaquinaEstados maqEstados; 
    
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Adding images
+        maqEstados = new MaquinaEstados();
         window = primaryStage;
-        busca = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/busca.png"));
-        decodifica = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/decodifica.png"));
+        
 
         //Taking care of image display
         selectedImage = new ImageView();   
-        selectedImage.setImage(getImage());
-       
+        selectedImage.setImage(maqEstados.getImBusca());
+      
         //Creating button
         button = new Button("Next");
 
@@ -46,7 +44,7 @@ public class Tela extends Application {
         //Taking care of button
         button.setOnAction(e -> {
             clock++;
-            //TODO (MAQUINA DE ESTADOS; BOOLEAN INSTRUCAO ACABOU)
+            selectedImage.setImage(maqEstados.getProxEstado());
 
         });
 
@@ -54,21 +52,6 @@ public class Tela extends Application {
 
         window.setScene(scene);
         window.show();
-    }
-
-    
-
-
-
-    public Image getImage(){
-        switch (clock) {
-            case 0:
-                return busca;
-            default:
-                break;
-        }
-        return decodifica;
-
     }
 
     public static void main(String[] args) {
