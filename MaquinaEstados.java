@@ -26,9 +26,9 @@ public class MaquinaEstados {
     private boolean acabouInst;
     private String tipo;
 
-    public MaquinaEstados() throws FileNotFoundException {
+    public MaquinaEstados(String file) throws FileNotFoundException {
         estadoAtual = busca;
-        controller = new Controller("mipsProgram.mips");
+        controller = new Controller(file);
         
     }
 
@@ -36,6 +36,10 @@ public class MaquinaEstados {
         acabouInst = controller.buscaInstrucao();
         System.out.println("Estado atual = "+estadoAtual);
         return imBusca;
+    }
+
+    public String getEstadoAtual(){
+        return estadoAtual;
     }
 
     public Image getProxEstado(){
@@ -82,8 +86,17 @@ public class MaquinaEstados {
                             return imAcessaMemoriaTipoR;    
                         case "tipoI":
                             return imAcessaMemoriaTipoI;
-                        // ... TODO
+                        // case "lw":
+                        //     return imAcessaMemoriaLw;
+                        // case "sw":
+                        //     return imAcessaMemoriaSw;
                     }
+            /*  case acessoMemoria:
+                    acabouInst = controller.escreveMemoria();
+                    estadoAtual = escreveMemoria;
+                    System.out.println("Estado atual = "+estadoAtual);
+                    return imEscreveMemoria;
+            */
                 
 
             }
@@ -101,6 +114,7 @@ public class MaquinaEstados {
            
             } catch (Exception e) {
                 System.out.println("Terminou o programa");
+                estadoAtual = "Acabo saporra";
                 return imAcabou;
             }
            

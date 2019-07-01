@@ -81,8 +81,13 @@ public class Controller {
         ulaFonteA = "10";
         chamaUla();     //ALUOut = Branch Adress (Just in case)
 
+        regs.setReg(8, 23);
         regA = regs.getValue(Integer.parseInt(inst.substring(6,11),2));  //regA = rs (Just in case)
         regB = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regB = rt (Just in case)
+
+        
+        System.out.println("regA numero = "+Integer.parseInt(inst.substring(6,11),2));
+        System.out.println("regB numero = "+Integer.parseInt(inst.substring(11,16),2));
 
         operation = decode(inst);
         
@@ -127,7 +132,7 @@ public class Controller {
 
             case "tipoI":
                 ulaFonteA = "01";
-                ulaFonteB = "10";
+                ulaFonteB = "11";
 
                 switch (operation) {
                     case "ori":
@@ -139,7 +144,10 @@ public class Controller {
                         chamaUla();
                         break;
                     case "lui":
-                        ulaOp = "lui";
+                        ulaFonteA = "10";
+                        ulaFonteB = "10";
+                        ulaOp = "soma";
+
                         chamaUla();
                         break;
                 }
@@ -318,7 +326,7 @@ public class Controller {
                 src2 = 1;
                 break;
             case "10":
-                src2 = Integer.parseInt(inst.substring(16),2);
+                src2 = Integer.parseInt(inst.substring(16)+"0000000000000000",2);
                 break;
             case "11":
                 src2 = Integer.parseInt(inst.substring(16),2);
