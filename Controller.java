@@ -16,7 +16,7 @@ public class Controller {
     private String ulaOp;
     private String ulaFonteB;
     private String ulaFonteA;
-    private String escReg;
+    private boolean escReg;
     private String regDest;
     private Ula ula;
     private boolean zero;
@@ -29,6 +29,10 @@ public class Controller {
     String operation;
     Registers regs;
     String tipo;
+    int reg1;
+    int reg2;
+    int regRd;
+    int value;
 
 
     public Controller(String file) throws FileNotFoundException {
@@ -57,8 +61,6 @@ public class Controller {
         ulaFonteB = "01";
         ulaOp = "soma";
 
-
-
         pcAntigo = pc;
         chamaMemoria();
         chamaIr();
@@ -82,6 +84,10 @@ public class Controller {
 
         regA = regs.getValue(Integer.parseInt(inst.substring(6,11),2));  //regA = rs (Just in case)
         regB = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regB = rt (Just in case)
+
+        //TEST
+        regA = 2;
+        regB = 3;
         
         operation = decode(inst);
         
@@ -174,6 +180,29 @@ public class Controller {
         }
         return false;
     }
+
+    public boolean acessoMemoria(){
+        //ETAPA 4
+        System.out.println("---------------------------------");
+        System.out.println("Etapa 4: ");
+
+        switch (tipo) {
+            case "tipoR":
+                memParaReg = "0";
+                regDest = "1";
+                escReg = true;
+                chamaRegistradores();
+                System.out.println("Adicionando no registrador Reg["+regRd+"] : "+value);
+                return true;
+                
+        
+            default:
+                break;
+        }
+        
+        return false;
+
+    }
     
     public void chamaPc(){
         if(pcEsc!=true && pcEsc!=false)
@@ -199,6 +228,34 @@ public class Controller {
             
     }
 
+    public void chamaRegistradores(){
+        
+        if (escReg){
+            switch (regDest) {
+                case "1":
+                    regRd = Integer.parseInt(inst.substring(16,21),2);
+                    System.out.println("regRd = "+regRd);
+                    break;
+            
+                case "0":
+                    //TODO
+                    break;
+            }
+
+            switch (memParaReg){
+                case "0":
+                    value = Integer.parseInt(ulaSaida);
+                    break;
+            
+                case "1":
+                    //TODO
+                    break;
+            }
+            
+            regs.setReg(regRd, value);
+
+        }
+    }
 
     public void chamaIr(){
         if (irEsc.equals("1"))
@@ -231,7 +288,7 @@ public class Controller {
                 break;
         
             case "0":
-                src1 = 0;
+                src1 = pc;
                 break;
         }
         

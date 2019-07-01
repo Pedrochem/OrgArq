@@ -19,6 +19,7 @@ public class MaquinaEstados {
     private final String executaTipoR = "executaTipoR";
     private final String executaBranch = "executaBranch";
     private final String executaJump = "executaJump";
+    private final String acessoMemoriaTipoR = "acessoMemoriaTipoR";
 
     private String estadoAtual;
     private boolean acabouInst;
@@ -65,8 +66,14 @@ public class MaquinaEstados {
                             estadoAtual = executaJump;
                             System.out.println("Estado atual = "+estadoAtual);
                             return imExecutaJump;
-                        }
-                        
+                    }
+                case executaTipoR:
+                    acabouInst = controller.acessoMemoria();
+                    estadoAtual = acessoMemoriaTipoR;
+                    System.out.println("Estado atual = "+estadoAtual);
+
+                    return imBusca;
+
             }
         }
         
