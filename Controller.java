@@ -129,9 +129,14 @@ public class Controller {
             case "tipo_i":
                 //TODO   
                 break;
+
             case "jump":
-                //TODO
-                break;
+                pcEsc = true;
+                fontePc = "10";
+                chamaPc();
+                System.out.println("Vai realizar um Jump, PC = Edereço do jump ("+pc+")");
+                return true;     
+
             case "store":
                 //TODO
                 break;
@@ -153,12 +158,12 @@ public class Controller {
 
                 if (ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
-                    System.out.println("Os registradores são iguais, logo branch executada");
-                    System.out.println("PC = SaidaUla ("+ulaSaidaAntiga+")");
+                    System.out.println("O conteúdo dos registradores é igual, logo branch será executado");
+                    System.out.println("PC = SaidaUla ("+pc+")");
                 }
                 else {
-                    System.out.println("Os registradores não são iguais, logo branch não executada");
-                    System.out.println("PC = PC ("+pc+")");
+                    System.out.println("O conteúdo dos registradores não é igual, logo branch não será executado");
+                    System.out.println("PC = PC++ ("+pc+")");
                 }
             
                 return true;
@@ -171,6 +176,13 @@ public class Controller {
     }
     
     public void chamaPc(){
+        if(pcEsc!=true && pcEsc!=false)
+            pcEsc = false;
+        if(pcEscCond!=true && pcEscCond!=false)
+            pcEscCond = false;
+        if(zero!=true && zero!=false)
+            zero = false;
+        
         if (pcEsc || (pcEscCond && zero)){
             switch (fontePc) {
                 case "00":
@@ -178,9 +190,9 @@ public class Controller {
                     break;
                 case "01":
                     pc = Integer.parseInt(ulaSaidaAntiga);
-            
+                    break;
                 case "10":
-                    //TODO
+                    pc = Integer.parseInt(inst.substring(6),2);
                     break;
             }
         }
@@ -271,7 +283,7 @@ public class Controller {
                 else if(funct.equals("000010"))
                     return "srl";
             case "000010":
-                return "j";
+                return "jump";
             case "000100":
                 return "beq";
             case "101011":
@@ -291,7 +303,7 @@ public class Controller {
                 return "store";
             case "beq":
                 return "branch";
-            case "j":
+            case "jump":
                 return "jump";
             case "addiu":
             case "lui":

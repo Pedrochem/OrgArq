@@ -10,6 +10,7 @@ public class MaquinaEstados {
     private Image imDecodifica = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/decodifica.png"));
     private Image imExecutaBranch = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/executaBranch.png"));
     private Image imExecutaTipoR = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/executaTipoR.png"));
+    private Image imExecutaJump = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/executaJump.png"));
 
     private Image imAcabou = new Image (new FileInputStream("/home/pedro/Desktop/OrgArq/images/acabou.png"));
 
@@ -17,6 +18,7 @@ public class MaquinaEstados {
     private final String decodifica = "decodifica";
     private final String executaTipoR = "executaTipoR";
     private final String executaBranch = "executaBranch";
+    private final String executaJump = "executaJump";
 
     private String estadoAtual;
     private boolean acabouInst;
@@ -58,7 +60,13 @@ public class MaquinaEstados {
                             estadoAtual = executaTipoR;
                             System.out.println("Estado atual = "+estadoAtual);
                             return imExecutaTipoR;
-                    }
+                        
+                        case "jump":
+                            estadoAtual = executaJump;
+                            System.out.println("Estado atual = "+estadoAtual);
+                            return imExecutaJump;
+                        }
+                        
             }
         }
         
