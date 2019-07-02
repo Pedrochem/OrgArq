@@ -192,9 +192,6 @@ public class Controller {
             
                 return true;
                 
-            default:
-                //TODO
-                return false;
         }
         return false;
     }
@@ -221,6 +218,8 @@ public class Controller {
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg["+regRd+"] : "+value);
                 return true;
+            
+            
                 
         }
         
