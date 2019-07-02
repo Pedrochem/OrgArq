@@ -38,12 +38,12 @@ public class Tela extends Application {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(window);
             arquivo = String.valueOf(file.getAbsolutePath());
-            System.out.println("deu ruim: "+arquivo);
-            // try {
-            //     maqEstados = new MaquinaEstados(arquivo);
-            // } catch (FileNotFoundException e1) {
-            //     System.out.println("deu erro");
-            // }
+            try {
+                window.setScene(getScene2(arquivo));
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+
         });
 
         //Layout 1 - children laid out in vertical column
@@ -52,15 +52,18 @@ public class Tela extends Application {
         layout1.getChildren().addAll(label1, button1);
         scene1 = new Scene(layout1, 300, 300);
 
-
-        //--------------------------------------------------------
-       
+        window.setScene(scene1);
+        window.show();
+    }
+    
+    public Scene getScene2(String arquivo) throws FileNotFoundException {
+        maqEstados = new MaquinaEstados(arquivo);
         //Creating label
         Label label = new Label("Estado atual: busca");
         //Taking care of image display
         selectedImage = new ImageView();   
         selectedImage.setImage(maqEstados.getImBusca());
-      
+    
         //Creating button
         button = new Button("Next");
 
@@ -79,17 +82,13 @@ public class Tela extends Application {
             Image im = maqEstados.getProxEstado();
             selectedImage.setImage(im);
             label.setText("Estado atual: "+maqEstados.getEstadoAtual());
-           
+        
             
-
         });
 
         scene2 = new Scene(layout, 1200, 800);
-
-        window.setScene(scene1);
-        window.show();
-    }
- 
+        return scene2;
+   }
 
     public static void main(String[] args) {
         launch(args);

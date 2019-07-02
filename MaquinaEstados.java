@@ -26,11 +26,11 @@ public class MaquinaEstados {
     private boolean acabouInst;
     private String tipo;
 
-    public MaquinaEstados(String file) throws FileNotFoundException {
+    public MaquinaEstados(String arq)throws FileNotFoundException {
         estadoAtual = busca;
-        controller = new Controller(file);
-        
+        controller = new Controller(arq);
     }
+    
 
     public Image getImBusca(){
         acabouInst = controller.buscaInstrucao();
