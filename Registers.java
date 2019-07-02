@@ -1,7 +1,6 @@
 public class Registers{
     private int [] reg;
     
-
     public Registers(){
         reg = new int[32];
         initialize();
@@ -24,6 +23,4 @@ public class Registers{
             reg[i]=0;            
         }
     }
-
-    
 }

@@ -9,7 +9,7 @@ public class Controller {
     private boolean pcEsc;
     private String louD;
     private String lerMem;
-    private String escMem;
+    private boolean escMem;
     private String memParaReg;
     private String irEsc;
     private String fontePc;
@@ -157,11 +157,17 @@ public class Controller {
                 ulaFonteA = "01";
                 ulaFonteB = "10";
                 ulaOp     = "00";
+                chamaUla();
+                // mem[ulaSaida] = B;
+
                 break;
             case "load":
                 ulaFonteA = "01";
                 ulaFonteB = "10";
                 ulaOp     = "00";
+                chamaUla();
+                // RDM = mem[ulaSaida];
+
                 break;
             case "branch":
                 ulaFonteA = "01";
@@ -191,7 +197,7 @@ public class Controller {
         System.out.println("---------------------------------");
         System.out.println("Etapa 4: ");
 
-        switch (tipo) {
+        switch(tipo) {
             case "tipoR":
                 memParaReg = "0";
                 regDest = "1";
@@ -199,13 +205,25 @@ public class Controller {
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
                 return true;
-                
             case "tipoI":
                 memParaReg = "0";
                 regDest = "0";
                 escReg = true;
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
+                return true;
+            case "load":
+                memParaReg = "1";
+                regDest = "0";
+                escReg = false;
+                escMem = true;
+                chamaRegistradores();
+                return true;
+            case "store":
+                memParaReg = "0";
+                regDest = "1";
+                escReg = true;
+                chamaRegistradores();
                 return true;
         }
         return false;
@@ -231,20 +249,19 @@ public class Controller {
         if (escReg){
             switch (regDest) {
                 case "1":
-                    regRd = Integer.parseInt(inst.substring(16,21),2);
+                    regRd = Integer.parseInt(inst.substring(16, 21), 2);
                     System.out.println("regRd = " + regRd);
                     break;
                 case "0":
-                    regRd = Integer.parseInt(inst.substring(11, 16),2);
+                    regRd = Integer.parseInt(inst.substring(11, 16), 2);
                     break;
             }
-
             switch (memParaReg){
                 case "0":
                     value = Integer.parseInt(ulaSaida);
                     break;
                 case "1":
-                    //TODO
+                    // TODO
                     break;
             }
             regs.setReg(regRd, value);
@@ -273,7 +290,6 @@ public class Controller {
     public void chamaUla(){
         int src1 = 0;
         int src2 = 0;
-        
         switch (ulaFonteA) {
             case "01":
                 src1 = regA;
@@ -285,7 +301,6 @@ public class Controller {
                 src1 = 0;
                 break;
         }
-        
         switch (ulaFonteB) {
             case "00":
                 src2 = regB;
