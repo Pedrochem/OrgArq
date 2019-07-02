@@ -33,7 +33,6 @@ public class Ula{
     public String executa(int srcA, int srcB, String op){
         switch(op){
             case "soma":
-                
                 return String.valueOf(srcA + srcB);
             case "slt":
                 return (srcA < srcB) ? "1" : "0";
@@ -45,13 +44,7 @@ public class Ula{
                 return String.valueOf(srcA << srcB);
             case "srl":
                 return String.valueOf(srcA >> srcB);
-            
-            
             }
-        
         return "";
     }
-
-
-
 }

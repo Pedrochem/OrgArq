@@ -12,11 +12,9 @@ public class Memory {
 
     public Memory(String fileName) throws FileNotFoundException {
         int size = 600;
-	mem = new String[size];
+	    mem = new String[size];
         labels = new HashMap<String, Integer>();
-
-	pc = 400; // 200 slots for stack
-
+	    pc = 400; // 200 slots for stack
         Scanner f = new Scanner(new File(fileName));
         String line;
         String[] campos;
@@ -33,9 +31,10 @@ public class Memory {
         }
         instructionSize = i;
         f.close();
-	while(instructionSize > pc)
+	    while(instructionSize > pc)
 		pc++;
     }
+    
     public int getInstructionSize(){
         return instructionSize;
     }

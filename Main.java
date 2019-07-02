@@ -14,25 +14,13 @@ import java.io.FileNotFoundException;
 // 6. Show execution on screen.
 
 public class Main {
-
-   
-
     public static void main(String[] args) throws FileNotFoundException {
         Controller controller;
-        
-        //Memory mem = new Memory("input.mips");
-
         while (true){
             //Testando ADDU
-           
-
             String inst = "00000001011010110101100000100001"; //mem.fetch(pc);
-
             controller =  new Controller("mipsProgram.mips");
             break;
-        }
-       
-        
+        }   
     }
-        
 }   
