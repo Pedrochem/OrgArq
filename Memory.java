@@ -19,7 +19,6 @@ public class Memory {
         temData = false;
         instructionSize = 0;
         
-
         mem = new String[size];
         preencheMem();
         Scanner f = new Scanner(new File(fileName));
@@ -28,11 +27,11 @@ public class Memory {
         int i = 0;
         String text = f.nextLine();
         if (!text.equals(".text")){
-            System.out.println("O ARQUIVO DEVE COMEÇAR COM .TEXT"+text);
+            System.out.println("O ARQUIVO DEVE COMEÇAR COM .TEXT" + text);
             f.close();
             return;
         }
-        //ADICIONANDO INSTRUCOES
+        // ADICIONANDO INSTRUCOES
         while(f.hasNext()){
             line = f.nextLine();
             if (line.equals(".data")){
@@ -46,7 +45,7 @@ public class Memory {
         }
         instructionSize = i;
 
-        //ADICIONANDO .DATA (SE TIVER)
+        // ADICIONANDO .DATA (SE TIVER)
         if (temData){
             while (f.hasNext()) {
                 line = f.nextLine();
@@ -59,17 +58,24 @@ public class Memory {
                         break;
                     }
                 }
-                mem[startDataAdress] = dado;    //DADO TA EM STRING (MAS É DECIMAL)
+                mem[startDataAdress] = dado;    // DADO ESTÁ EM STRING (MAS É DECIMAL)
                 startDataAdress++;
             }
         }
         f.close();
     }
     
+    /**
+     * Retorna o o tamanho da memória das instruções
+     * @return instructionSize
+     */
     public int getInstructionSize(){
         return instructionSize;
     }
 
+    /**
+     * Imprime a memória
+     */
     public void imprimeMem(){
         for (int i=0;i<200;i++){
             if(i<100 && !mem[i].equals(String.valueOf(i)))
@@ -79,15 +85,29 @@ public class Memory {
         }
     }
 
+    /**
+     * Preenche a memória
+     */
     public void preencheMem(){
         for (int i=0;i<200;i++){
            mem[i] = String.valueOf(i);
         }
     }
 
+    /**
+     * Retorna a instrução na posição pos da memória
+     * @param pos posição da memória
+     * @return instrução na posição pos
+     */
     public String fetch(int pos){
         return mem[pos];
     }
+
+    /**
+     * Define a instrução da posição address para value
+     * @param address Endereço
+     * @param value Instrução
+     */
     public void set(int address, String value){
         if (address>=100 && address<=199)
             mem[address] = value;
