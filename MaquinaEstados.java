@@ -51,16 +51,13 @@ public class MaquinaEstados {
     }
 
     public Image getProxEstado(){
-        
         if (!acabouInst){
             switch (estadoAtual) {
-
                 case busca:
                     acabouInst = controller.decodificaInstrucao();
                     estadoAtual = decodifica;
                     System.out.println("Estado atual = "+estadoAtual);
                     return imDecodifica;
-                    
                 case decodifica:
                     acabouInst = controller.executaInstrucao();    //Controle executa a decodificação,assim podemos sabemos qual o tipo de instrucao para saber pra onde ir
                     tipo = controller.getTipo();    
@@ -82,11 +79,10 @@ public class MaquinaEstados {
                             return imExecutaSw;
                             
                     }
-
                 case executa:
                     acabouInst = controller.acessoMemoria();
                     estadoAtual = acessoMemoria;
-                    System.out.println("Estado atual = "+estadoAtual);
+                    System.out.println("Estado atual = " + estadoAtual);
                     
                     switch (tipo) {
                         case "tipoR":
@@ -104,10 +100,6 @@ public class MaquinaEstados {
                         System.out.println("Estado atual = "+estadoAtual);
                         acabouInst = true;
                         return imEscreveMemoriaLw;
-                       
-                    
-                
-
             }
         }
         
@@ -115,18 +107,15 @@ public class MaquinaEstados {
             estadoAtual = busca;
             System.out.println("---------------------------------");
             System.out.println("Instrução finalizada, buscando nova instrução");
-
             try {
-                System.out.println("Estado atual = "+estadoAtual);
+                System.out.println("Estado atual = " + estadoAtual);
                 acabouInst = controller.buscaInstrucao();
                 return imBusca;
-           
             } catch (Exception e) {
                 System.out.println("Terminou o programa");
                 estadoAtual = "Acabo cabo";
                 return imAcabou;
             }
-           
         }
         return imAcabou;   
     }

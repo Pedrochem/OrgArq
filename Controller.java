@@ -52,14 +52,13 @@ public class Controller {
         pcEscCond = false;
         pcEsc = false;
         zero = false;
-
+(??)
     }
 
 
     public boolean buscaInstrucao(){
         //ETAPA 1
-       
-        if (pc>=mem.getInstructionSize())
+        if (pc >= mem.getInstructionSize())
             throw new NullPointerException(); 
 
         pcEsc = true;
@@ -78,11 +77,10 @@ public class Controller {
         chamaIr();
         chamaUla();
         chamaPc();
-        
 
         System.out.println("---------------------------------"); 
         System.out.println("Etapa 1:");
-        System.out.println("IR = Mem["+pcAntigo+"] | PC = "+pc + "");
+        System.out.println("IR = Mem[" + pcAntigo + "] | PC = " + pc + "");
         regs.imprimeRegs();
         mem.imprimeMem();
         return false;
@@ -93,15 +91,14 @@ public class Controller {
         ulaOp = "soma";
         ulaFonteB = "11";
         ulaFonteA = "10";
-        chamaUla();     //ALUOut = Branch Adress (Just in case)
+        chamaUla(); // ALUOut = Branch Adress (Just in case)
 
         regs.setReg(8, 23);
-        regA = regs.getValue(Integer.parseInt(inst.substring(6,11),2));  //regA = rs (Just in case)
-        regB = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regB = rt (Just in case)
+        regA = regs.getValue(Integer.parseInt(inst.substring(6, 11), 2));  // regA = rs (Just in case)
+        regB = regs.getValue(Integer.parseInt(inst.substring(11, 16), 2)); // regB = rt (Just in case)
 
-        //TESTES (APAGAR DPS)
-        System.out.println("regA numero = "+Integer.parseInt(inst.substring(6,11),2));
-        System.out.println("regB numero = "+Integer.parseInt(inst.substring(11,16),2));
+        System.out.println("regA numero = " + Integer.parseInt(inst.substring(6, 11), 2));
+        System.out.println("regB numero = " + Integer.parseInt(inst.substring(11, 16), 2));
 
         operation = decode(inst);
         
@@ -115,13 +112,11 @@ public class Controller {
         //ETAPA 3
         System.out.println("---------------------------------");
         System.out.println("Etapa 3: ");
-
         tipo = getTipo();
         switch(tipo){
             case "tipoR":
                 ulaFonteA = "01";
                 ulaFonteB = "00";
-                
                 switch (operation) {
                     case "addu":
                         ulaOp = "soma";
@@ -144,14 +139,12 @@ public class Controller {
                         chamaUla();
                         break;
                 }
-
-                System.out.println("Saida da ula: "+ulaSaida);
+                System.out.println("Saida da ula: " + ulaSaida);
                 return false;
 
             case "tipoI":
                 ulaFonteA = "01";
                 ulaFonteB = "11";
-
                 switch (operation) {
                     case "ori":
                         ulaOp = "or";
@@ -165,20 +158,17 @@ public class Controller {
                         ulaFonteA = "10";
                         ulaFonteB = "10";
                         ulaOp = "soma";
-
                         chamaUla();
                         break;
                 }
-                System.out.println("Saida da ula: "+ulaSaida);
+                System.out.println("Saida da ula: " + ulaSaida);
                 return false;
-
             case "jump":
                 pcEsc = true;
                 fontePc = "10";
                 chamaPc();
-                System.out.println("Vai realizar um Jump, PC = Edereço do jump ("+pc+")");
-                return true;     
-
+                System.out.println("Vai realizar um Jump, PC => Edereço do jump (" + pc + ")");
+                return true;
             case "store":
                 ulaOp = "soma";
                 ulaFonteA = "01";
@@ -200,51 +190,44 @@ public class Controller {
                 ulaFonteA = "01";
                 ulaFonteB = "00";
                 ulaOp = "sub";
-                
                 fontePc = "01";
                 pcEscCond = true;
                 pcEsc = false;
-            
                 chamaPc();
                 chamaUla();
-
-                if (ulaSaida.equals("0")){ 
+                if(ulaSaida.equals("0")){ 
                     pc = Integer.parseInt(inst.substring(21),2);
                     System.out.println("O conteúdo dos registradores é igual, logo branch será executado");
-                    System.out.println("PC = SaidaUla ("+pc+")");
+                    System.out.println("PC = SaidaUla (" + pc + ")");
                 }
-                else {
+                else{
                     System.out.println("O conteúdo dos registradores não é igual, logo branch não será executado");
-                    System.out.println("PC = PC++ ("+pc+")");
+                    System.out.println("PC = PC++ (" + pc + ")");
                 }
-            
                 return true;
-                
         }
         return false;
     }
 
     public boolean acessoMemoria(){
-        //ETAPA 4
+        // ETAPA 4
         System.out.println("---------------------------------");
         System.out.println("Etapa 4: ");
 
-        switch (tipo) {
+        switch(tipo) {
             case "tipoR":
                 memParaReg = "0";
                 regDest = "1";
                 escReg = true;
                 chamaRegistradores();
-                System.out.println("Adicionando no registrador Reg["+regRd+"] : "+value);
+                System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
                 return true;
-                
-        
             case "tipoI":
                 memParaReg = "0";
                 regDest = "0";
                 escReg = true;
                 chamaRegistradores();
-                System.out.println("Adicionando no registrador Reg["+regRd+"] : "+value);
+                System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
                 return true;
             
             case "store":
@@ -259,9 +242,7 @@ public class Controller {
                 lerMem = true;
                 chamaMemoria();
         }
-        
         return false;
-
     }
     
      public boolean escreveMemoria(){
@@ -276,14 +257,7 @@ public class Controller {
         return true;
     }
 
-    public void chamaPc(){
-        if(pcEsc!=true && pcEsc!=false)
-            pcEsc = false;
-        if(pcEscCond!=true && pcEscCond!=false)
-            pcEscCond = false;
-        if(zero!=true && zero!=false)
-            zero = false;
-        
+    public void chamaPc(){        
         if (pcEsc || (pcEscCond && zero)){
             switch (fontePc) {
                 case "00":
@@ -293,39 +267,32 @@ public class Controller {
                     pc = Integer.parseInt(ulaSaidaAntiga);
                     break;
                 case "10":
-                    pc = Integer.parseInt(inst.substring(6),2);
+                    pc = Integer.parseInt(inst.substring(6), 2);
                     break;
             }
         }
-            
     }
 
     public void chamaRegistradores(){
-        
         if (escReg){
             switch (regDest) {
                 case "1":
-                    regRd = Integer.parseInt(inst.substring(16,21),2);
-                    System.out.println("regRd = "+regRd);
+                    regRd = Integer.parseInt(inst.substring(16, 21), 2);
+                    System.out.println("regRd = " + regRd);
                     break;
-            
                 case "0":
-                    regRd = Integer.parseInt(inst.substring(11, 16),2);
+                    regRd = Integer.parseInt(inst.substring(11, 16), 2);
                     break;
             }
-
             switch (memParaReg){
                 case "0":
                     value = Integer.parseInt(ulaSaida);
                     break;
-            
                 case "1":
                     value = mdr;
                     break;
             }
-            
             regs.setReg(regRd, value);
-
         }
     }
 
@@ -335,8 +302,6 @@ public class Controller {
     }
 
     public void chamaMemoria(){
-        
-    
         if (lerMem){ 
             switch (louD) {
                 case "0":
@@ -358,11 +323,9 @@ public class Controller {
 
     }
 
-
     public void chamaUla(){
-        int src1=0;
-        int src2=0;
-        
+        int src1 = 0;
+        int src2 = 0;
         switch (ulaFonteA) {
             case "01":
                 src1 = regA;
@@ -374,7 +337,6 @@ public class Controller {
                 src1 = 0;
                 break;
         }
-        
         switch (ulaFonteB) {
             case "00":
                 src2 = regB;
@@ -383,7 +345,7 @@ public class Controller {
                 src2 = 1;
                 break;
             case "10":
-                src2 = Integer.parseInt(inst.substring(16)+"0000000000000000",2);
+                src2 = Integer.parseInt(inst.substring(16) + "0000000000000000", 2);
                 break;
             case "11":
                 src2 = Integer.parseInt(inst.substring(16),2);
@@ -392,13 +354,9 @@ public class Controller {
                 break;
         }
         ulaSaidaAntiga = ulaSaida;
-        
         ulaSaida = ula.executa(src1, src2, ulaOp);
-       
-        if (ulaSaida.equals("0"))
-            zero = true;
-        else
-            zero = false;
+        if (ulaSaida.equals("0")) zero = true;
+        else zero = false;
     }
 
     public String decode(String instruction) {
@@ -435,7 +393,6 @@ public class Controller {
     }
 
     public String getTipo(){
-
         switch (operation) {
             case "lw":
                 return "load";
@@ -449,7 +406,6 @@ public class Controller {
             case "lui":
             case "ori":
                 return "tipoI";
-            
             default:
                 return "tipoR";
         }
