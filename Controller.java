@@ -37,12 +37,11 @@ public class Controller {
     int adress;
     int mdr;
 
-
     public Controller(String file) throws FileNotFoundException {
         ula = new Ula();
         regs = new Registers();
         mem = new Memory(file);
-       
+
         pc=0;
         ulaSaida = "";
         adress = 0;
@@ -52,14 +51,12 @@ public class Controller {
         pcEscCond = false;
         pcEsc = false;
         zero = false;
-(??)
     }
-
 
     public boolean buscaInstrucao(){
         //ETAPA 1
         if (pc >= mem.getInstructionSize())
-            throw new NullPointerException(); 
+            throw new NullPointerException();
 
         pcEsc = true;
         pcEscCond = false;
@@ -78,7 +75,7 @@ public class Controller {
         chamaUla();
         chamaPc();
 
-        System.out.println("---------------------------------"); 
+        System.out.println("---------------------------------");
         System.out.println("Etapa 1:");
         System.out.println("IR = Mem[" + pcAntigo + "] | PC = " + pc + "");
         regs.imprimeRegs();
@@ -90,7 +87,7 @@ public class Controller {
         //ETAPA 2
         ulaOp = "soma";
         ulaFonteB = "11";
-        ulaFonteA = "10";
+        ulaFonteA = "10"; // Nos slides a ulaFonteA nesse caso eh 00...
         chamaUla(); // ALUOut = Branch Adress (Just in case)
 
         regs.setReg(8, 23);
@@ -101,7 +98,7 @@ public class Controller {
         System.out.println("regB numero = " + Integer.parseInt(inst.substring(11, 16), 2));
 
         operation = decode(inst);
-        
+
         System.out.println("---------------------------------");
         System.out.println("Etapa 2: ");
         System.out.println("RegA = " + regA + " | RegB = " + regB + " | ALUOut = " + ulaSaida + " | Operation = " + operation);
@@ -125,7 +122,7 @@ public class Controller {
                     case "and":
                         ulaOp = "and";
                         chamaUla();
-                        break;  
+                        break;
                     case "sll":
                         ulaOp = "sll";
                         chamaUla();
@@ -141,7 +138,6 @@ public class Controller {
                 }
                 System.out.println("Saida da ula: " + ulaSaida);
                 return false;
-
             case "tipoI":
                 ulaFonteA = "01";
                 ulaFonteB = "11";
@@ -172,20 +168,17 @@ public class Controller {
             case "store":
                 ulaOp = "soma";
                 ulaFonteA = "01";
-                ulaFonteB = "11";
+                ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
                 return false;
-            
             case "load":
                 ulaOp = "soma";
                 ulaFonteA = "01";
-                ulaFonteB = "11";
+                ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
                 return false;
-               
-
             case "branch":
                 ulaFonteA = "01";
                 ulaFonteB = "00";
@@ -195,7 +188,7 @@ public class Controller {
                 pcEsc = false;
                 chamaPc();
                 chamaUla();
-                if(ulaSaida.equals("0")){ 
+                if(ulaSaida.equals("0")){
                     pc = Integer.parseInt(inst.substring(21),2);
                     System.out.println("O conteúdo dos registradores é igual, logo branch será executado");
                     System.out.println("PC = SaidaUla (" + pc + ")");
@@ -229,14 +222,12 @@ public class Controller {
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
                 return true;
-            
             case "store":
                 louD = "1";
                 escMem = true;
                 lerMem = false;
                 chamaMemoria();
                 return true;
-            
             case "load":
                 louD = "1";
                 lerMem = true;
@@ -244,7 +235,7 @@ public class Controller {
         }
         return false;
     }
-    
+
      public boolean escreveMemoria(){
         //ETAPA 5
         System.out.println("---------------------------------");
@@ -253,11 +244,11 @@ public class Controller {
         regDest = "0";
         memParaReg = "1";
         chamaRegistradores();
-        System.out.println("Adicionado no registrador: R["+regDest+"]"+": "+value);
+        System.out.println("Adicionado no registrador: R[" + regDest + "]" + ": " + value);
         return true;
     }
 
-    public void chamaPc(){        
+    public void chamaPc(){
         if (pcEsc || (pcEscCond && zero)){
             switch (fontePc) {
                 case "00":
@@ -302,7 +293,7 @@ public class Controller {
     }
 
     public void chamaMemoria(){
-        if (lerMem){ 
+        if (lerMem){
             switch (louD) {
                 case "0":
                     adress = pc;
@@ -315,7 +306,7 @@ public class Controller {
             }
         }
         if (escMem){
-            
+
             adress = Integer.parseInt(ulaSaida);
             mem.set(adress, String.valueOf(regB));
             System.out.println("Ae ó, to escrevendo "+String.valueOf(regB)+" na posicao "+adress+" da mem");
@@ -410,5 +401,5 @@ public class Controller {
                 return "tipoR";
         }
     }
-    
+
 }

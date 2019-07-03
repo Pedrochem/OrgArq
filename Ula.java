@@ -32,17 +32,17 @@ public class Ula{
 
     public String executa(int srcA, int srcB, String op){
         switch(op){
-            case "soma":
+            case "soma": // 000
                 return String.valueOf(srcA + srcB);
-            case "slt":
+            case "slt":  // 001
                 return (srcA < srcB) ? "1" : "0";
-            case "and":
+            case "and":  // 010
                 return String.valueOf(srcA & srcB);
-            case "sub":
-                return String.valueOf(srcA-srcB);
-            case "sll":
+            case "sub":  // 011
+                return String.valueOf(srcA - srcB);
+            case "sll":  // 100
                 return String.valueOf(srcA << srcB);
-            case "srl":
+            case "srl":  // 101
                 return String.valueOf(srcA >> srcB);
             }
         return "";

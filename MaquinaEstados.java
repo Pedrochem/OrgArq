@@ -6,22 +6,19 @@ import javafx.scene.image.Image;
 public class MaquinaEstados {
     Controller controller;
 
-    private Image imBusca = new Image (new FileInputStream("images/busca.png"));
-    private Image imDecodifica = new Image (new FileInputStream("images/decodifica.png"));
-    private Image imExecutaBranch = new Image (new FileInputStream("images/executaBranch.png"));
-    private Image imExecutaTipoR = new Image (new FileInputStream("images/executaTipoR.png"));
-    private Image imExecutaTipoI = new Image (new FileInputStream("images/executaTipoI.png"));  //MUDAR SINAIS DE CONTROLE DA FOTO
-    private Image imExecutaJump = new Image (new FileInputStream("images/executaJump.png"));
-    private Image imAcessaMemoriaTipoR = new Image (new FileInputStream("images/acessoMemoriaTipoR.png"));
-    private Image imAcessaMemoriaTipoI = new Image (new FileInputStream("images/acessoMemoriaTipoI.png"));  //MUDAR SINAIS DE CONTROLE DA FOTO
-    private Image imExecutaSw = new Image (new FileInputStream("images/executaSw.png"));    // ETAPA3
-    private Image imExecutaLw = new Image (new FileInputStream("images/executaLw.png"));    // ETAPA3
-    private Image imAcessaMemoriaLw = new Image (new FileInputStream("images/acessoMemoriaLw.png")); // ETAPA 4
-    private Image imAcessaMemoriaSw = new Image (new FileInputStream("images/acessoMemoriaSw.png")); // ETAPA 4
-    private Image imEscreveMemoriaLw= new Image (new FileInputStream("images/escreveMemoriaLw.png"));    // ETAPA 5
-
-    
-
+    private Image imBusca = new Image (new FileInputStream("images/arqmult_e1.png"));
+    private Image imDecodifica = new Image (new FileInputStream("images/arqmult_e2.png"));
+    private Image imExecutaBranch = new Image (new FileInputStream("images/arqmult_e3_beq.png"));
+    private Image imExecutaTipoR = new Image (new FileInputStream("images/arqmult_e3_tipo_r.png"));
+    private Image imExecutaTipoI = new Image (new FileInputStream("images/arqmult_e3_tipo_i.png"));
+    private Image imExecutaJump = new Image (new FileInputStream("images/arqmult_e3_jump.png"));
+    private Image imExecutaSw = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));    // ETAPA3
+    private Image imExecutaLw = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));    // ETAPA3
+    private Image imAcessaMemoriaTipoR = new Image (new FileInputStream("images/arqmult_e4_tipo_r.png"));
+    private Image imAcessaMemoriaTipoI = new Image (new FileInputStream("images/arqmult_e4_tipo_i.png"));
+    private Image imAcessaMemoriaLw = new Image (new FileInputStream("images/arqmult_e4_lw.png")); // ETAPA 4
+    private Image imAcessaMemoriaSw = new Image (new FileInputStream("images/arqmult_e4_sw.png")); // ETAPA 4
+    private Image imEscreveMemoriaLw= new Image (new FileInputStream("images/arqmult_e5_lw.png"));    // ETAPA 5
     private Image imAcabou = new Image (new FileInputStream("images/acabou.png"));
 
     private final String busca = "busca";
@@ -38,11 +35,10 @@ public class MaquinaEstados {
         estadoAtual = busca;
         controller = new Controller(arq);
     }
-    
 
     public Image getImBusca(){
         acabouInst = controller.buscaInstrucao();
-        System.out.println("Estado atual = "+estadoAtual);
+        System.out.println("Estado atual = " + estadoAtual);
         return imBusca;
     }
 
@@ -56,37 +52,37 @@ public class MaquinaEstados {
                 case busca:
                     acabouInst = controller.decodificaInstrucao();
                     estadoAtual = decodifica;
-                    System.out.println("Estado atual = "+estadoAtual);
+                    System.out.println("Estado atual = " + estadoAtual);
                     return imDecodifica;
                 case decodifica:
                     acabouInst = controller.executaInstrucao();    //Controle executa a decodificação,assim podemos sabemos qual o tipo de instrucao para saber pra onde ir
-                    tipo = controller.getTipo();    
+                    tipo = controller.getTipo();
                     estadoAtual = executa;
-                    System.out.println("Estado atual = "+estadoAtual);
-                    
+                    System.out.println("Estado atual = " + estadoAtual);
+
                     switch (tipo) {
                         case "branch":
                             return imExecutaBranch;
                         case "tipoR":
                             return imExecutaTipoR;
-                        case "jump":                            
+                        case "jump":
                             return imExecutaJump;
-                        case "tipoI":     
+                        case "tipoI":
                             return imExecutaTipoI;
                         case "load":
                             return imExecutaLw;
                         case "store":
                             return imExecutaSw;
-                            
+
                     }
                 case executa:
                     acabouInst = controller.acessoMemoria();
                     estadoAtual = acessoMemoria;
                     System.out.println("Estado atual = " + estadoAtual);
-                    
+
                     switch (tipo) {
                         case "tipoR":
-                            return imAcessaMemoriaTipoR;    
+                            return imAcessaMemoriaTipoR;
                         case "tipoI":
                             return imAcessaMemoriaTipoI;
                         case "load":
@@ -97,12 +93,12 @@ public class MaquinaEstados {
                 case acessoMemoria:
                         controller.escreveMemoria();
                         estadoAtual = escreveMemoria;
-                        System.out.println("Estado atual = "+estadoAtual);
+                        System.out.println("Estado atual = " + estadoAtual);
                         acabouInst = true;
                         return imEscreveMemoriaLw;
             }
         }
-        
+
         else{
             estadoAtual = busca;
             System.out.println("---------------------------------");
@@ -113,11 +109,11 @@ public class MaquinaEstados {
                 return imBusca;
             } catch (Exception e) {
                 System.out.println("Terminou o programa");
-                estadoAtual = "Acabo cabo";
+                estadoAtual = "Final";
                 return imAcabou;
             }
         }
-        return imAcabou;   
+        return imAcabou;
     }
 
 }
