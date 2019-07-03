@@ -249,6 +249,7 @@ public class Controller {
             case "store":
                 louD = "1";
                 escMem = true;
+                lerMem = false;
                 chamaMemoria();
                 return true;
             
@@ -348,6 +349,7 @@ public class Controller {
             }
         }
         if (escMem){
+            
             adress = Integer.parseInt(ulaSaida);
             mem.set(adress, String.valueOf(regB));
             System.out.println("Ae ó, to escrevendo "+String.valueOf(regB)+" na posicao "+adress+" da mem");

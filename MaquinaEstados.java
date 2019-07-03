@@ -80,10 +80,10 @@ public class MaquinaEstados {
                             return imExecutaLw;
                         case "store":
                             return imExecutaSw;
+                            
                     }
 
                 case executa:
-                    
                     acabouInst = controller.acessoMemoria();
                     estadoAtual = acessoMemoria;
                     System.out.println("Estado atual = "+estadoAtual);
@@ -93,13 +93,13 @@ public class MaquinaEstados {
                             return imAcessaMemoriaTipoR;    
                         case "tipoI":
                             return imAcessaMemoriaTipoI;
-                        case "lw":
+                        case "load":
                             return imAcessaMemoriaLw;
-                        case "sw":
+                        case "store":
                             return imAcessaMemoriaSw;
                     }
                 case acessoMemoria:
-                    System.out.println("erro");
+                    System.out.println("erro "+acabouInst);
                         // acabouInst = controller.escreveMemoria();
                         // estadoAtual = escreveMemoria;
                         // System.out.println("Estado atual = "+estadoAtual);
