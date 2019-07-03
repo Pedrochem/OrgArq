@@ -8,8 +8,8 @@ public class Controller {
     private boolean pcEscCond;
     private boolean pcEsc;
     private String louD;
-    private String lerMem;
-    private String escMem;
+    private boolean lerMem;
+    private boolean escMem;
     private String memParaReg;
     private String irEsc;
     private String fontePc;
@@ -33,6 +33,9 @@ public class Controller {
     int reg2;
     int regRd;
     int value;
+    String dadoEscritoMem;
+    int adress;
+    int mdr;
 
 
     public Controller(String file) throws FileNotFoundException {
@@ -41,6 +44,15 @@ public class Controller {
         mem = new Memory(file);
         pc=0;
         ulaSaida = "";
+        adress = 0;
+        lerMem = false;
+        escMem = false;
+        escReg = false;
+        pcEscCond = false;
+        pcEsc = false;
+        zero = false;
+
+
     }
 
 
@@ -54,7 +66,7 @@ public class Controller {
         pcEscCond = false;
         fontePc = "00";
 
-        lerMem = "1";
+        lerMem = true;
         louD = "0";
         irEsc = "1";
         ulaFonteA = "00";
@@ -85,7 +97,7 @@ public class Controller {
         regA = regs.getValue(Integer.parseInt(inst.substring(6,11),2));  //regA = rs (Just in case)
         regB = regs.getValue(Integer.parseInt(inst.substring(11,16),2));  //regB = rt (Just in case)
 
-        
+        //TESTES (APAGAR DPS)
         System.out.println("regA numero = "+Integer.parseInt(inst.substring(6,11),2));
         System.out.println("regB numero = "+Integer.parseInt(inst.substring(11,16),2));
 
@@ -125,6 +137,10 @@ public class Controller {
                         ulaOp = "srl";
                         chamaUla();
                         break;
+                    case "slt":
+                        ulaOp = "slt";
+                        chamaUla();
+                        break;
                 }
 
                 System.out.println("Saida da ula: "+ulaSaida);
@@ -162,11 +178,21 @@ public class Controller {
                 return true;     
 
             case "store":
-                //TODO
-                break;
+                ulaOp = "soma";
+                ulaFonteA = "01";
+                ulaFonteB = "11";
+                chamaUla();
+                System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
+                return false;
+            
             case "load":
-                //TODO
-                break;
+                ulaOp = "soma";
+                ulaFonteA = "01";
+                ulaFonteB = "11";
+                chamaUla();
+                System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
+                return false;
+               
 
             case "branch":
                 ulaFonteA = "01";
@@ -219,14 +245,34 @@ public class Controller {
                 System.out.println("Adicionando no registrador Reg["+regRd+"] : "+value);
                 return true;
             
+            case "store":
+                louD = "1";
+                escMem = true;
+                chamaMemoria();
+                return true;
             
-                
+            case "load":
+                louD = "1";
+                lerMem = true;
+                chamaMemoria();
         }
         
         return false;
 
     }
     
+     public boolean escreveMemoria(){
+        //ETAPA 5
+        System.out.println("---------------------------------");
+        System.out.println("Etapa 5: ");
+        escReg = true;
+        regDest = "0";
+        memParaReg = "1";
+        chamaRegistradores();
+        System.out.println("Adicionado no registrador: R["+regDest+"]"+": "+value);
+        return true;
+    }
+
     public void chamaPc(){
         if(pcEsc!=true && pcEsc!=false)
             pcEsc = false;
@@ -271,7 +317,7 @@ public class Controller {
                     break;
             
                 case "1":
-                    //TODO
+                    value = mdr;
                     break;
             }
             
@@ -286,18 +332,25 @@ public class Controller {
     }
 
     public void chamaMemoria(){
-        if (lerMem.equals("1")){ 
-            switch (louD) {
-                case "0":
-                    posMem = pc;
-                    break;
-                case "1":
-                    //TODO
-                default:
-                    break;
-            }
-        }
+        switch (louD) {
+            case "0":
+                adress = pc;    //posMem = adress (??)
+                break;
+            case "1":
+                adress = Integer.parseInt(ulaSaida);
+                break;
         
+
+        }
+        if (lerMem){ 
+            posMem = adress;    //GET CONTEUDO ADRRESS (PROBABALY, THEN CHANGE)
+            mdr = Integer.parseInt(mem.fetch(adress));
+        }
+        if (escMem){
+            mem.set(adress, String.valueOf(regB));
+            System.out.println("Ae ó, to escrevendo "+String.valueOf(regB)+" na posicao "+adress+" da mem");
+        }
+
     }
 
 
