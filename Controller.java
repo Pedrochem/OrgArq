@@ -102,6 +102,8 @@ public class Controller {
         System.out.println("---------------------------------");
         System.out.println("Etapa 2: ");
         System.out.println("RegA = " + regA + " | RegB = " + regB + " | ALUOut = " + ulaSaida + " | Operation = " + operation);
+        regs.imprimeRegs();
+        mem.imprimeMem();
         return false;
     }
 
@@ -137,6 +139,8 @@ public class Controller {
                         break;
                 }
                 System.out.println("Saida da ula: " + ulaSaida);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return false;
             case "tipoI":
                 ulaFonteA = "01";
@@ -158,12 +162,16 @@ public class Controller {
                         break;
                 }
                 System.out.println("Saida da ula: " + ulaSaida);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return false;
             case "jump":
                 pcEsc = true;
                 fontePc = "10";
                 chamaPc();
                 System.out.println("Vai realizar um Jump, PC => Edereço do jump (" + pc + ")");
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return true;
             case "store":
                 ulaOp = "soma";
@@ -171,6 +179,8 @@ public class Controller {
                 ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return false;
             case "load":
                 ulaOp = "soma";
@@ -178,6 +188,8 @@ public class Controller {
                 ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return false;
             case "branch":
                 ulaFonteA = "01";
@@ -192,10 +204,14 @@ public class Controller {
                     pc = Integer.parseInt(inst.substring(21),2);
                     System.out.println("O conteúdo dos registradores é igual, logo branch será executado");
                     System.out.println("PC = SaidaUla (" + pc + ")");
+                    regs.imprimeRegs();
+                    mem.imprimeMem();
                 }
                 else{
                     System.out.println("O conteúdo dos registradores não é igual, logo branch não será executado");
                     System.out.println("PC = PC++ (" + pc + ")");
+                    regs.imprimeRegs();
+                    mem.imprimeMem();
                 }
                 return true;
         }
@@ -214,6 +230,8 @@ public class Controller {
                 escReg = true;
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return true;
             case "tipoI":
                 memParaReg = "0";
@@ -221,17 +239,26 @@ public class Controller {
                 escReg = true;
                 chamaRegistradores();
                 System.out.println("Adicionando no registrador Reg[" + regRd + "] : " + value);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return true;
             case "store":
                 louD = "1";
                 escMem = true;
                 lerMem = false;
                 chamaMemoria();
+                System.out.println("Adicionando "+regB+"na posição de memória: "+adress);
+                regs.imprimeRegs();
+                mem.imprimeMem();
                 return true;
             case "load":
                 louD = "1";
                 lerMem = true;
                 chamaMemoria();
+                System.out.println("Mdr = "+mdr);
+                regs.imprimeRegs();
+                mem.imprimeMem();
+                return false;
         }
         return false;
     }
@@ -245,6 +272,8 @@ public class Controller {
         memParaReg = "1";
         chamaRegistradores();
         System.out.println("Adicionado no registrador: R[" + regDest + "]" + ": " + value);
+        regs.imprimeRegs();
+        mem.imprimeMem();
         return true;
     }
 

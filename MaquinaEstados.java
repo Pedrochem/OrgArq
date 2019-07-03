@@ -7,33 +7,33 @@ public class MaquinaEstados {
     Controller controller;
 
     // Etapa 1: Busca
-    private Image imBusca               = new Image (new FileInputStream("images/arqmult_e1.png"));
+    private Image imBusca               = new Image (new FileInputStream("images/arqmult_e1.png"), 900, 900, true, false);
     // Etapa 2: Decodifica
-    private Image imDecodifica          = new Image (new FileInputStream("images/arqmult_e2.png"));
+    private Image imDecodifica          = new Image (new FileInputStream("images/arqmult_e2.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de beq
-    private Image imExecutaBranch       = new Image (new FileInputStream("images/arqmult_e3_beq.png"));
+    private Image imExecutaBranch       = new Image (new FileInputStream("images/arqmult_e3_beq.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de Tipo-R
-    private Image imExecutaTipoR        = new Image (new FileInputStream("images/arqmult_e3_tipo_r.png"));
+    private Image imExecutaTipoR        = new Image (new FileInputStream("images/arqmult_e3_tipo_r.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de Tipo-I
-    private Image imExecutaTipoI        = new Image (new FileInputStream("images/arqmult_e3_tipo_i.png"));
+    private Image imExecutaTipoI        = new Image (new FileInputStream("images/arqmult_e3_tipo_i.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de salto incondicional
-    private Image imExecutaJump         = new Image (new FileInputStream("images/arqmult_e3_jump.png"));
+    private Image imExecutaJump         = new Image (new FileInputStream("images/arqmult_e3_jump.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de store
-    private Image imExecutaSw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));
+    private Image imExecutaSw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"), 900, 900, true, false);
     // Etapa 3: Executa instrução de load
-    private Image imExecutaLw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));
+    private Image imExecutaLw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"), 900, 900, true, false);
     // Etapa 4: Acesso à memória, Tipo-R
-    private Image imAcessaMemoriaTipoR  = new Image (new FileInputStream("images/arqmult_e4_tipo_r.png"));
+    private Image imAcessaMemoriaTipoR  = new Image (new FileInputStream("images/arqmult_e4_tipo_r.png"), 900, 900, true, false);
     // Etapa 4: Acesso à memória, Tipo-I
-    private Image imAcessaMemoriaTipoI  = new Image (new FileInputStream("images/arqmult_e4_tipo_i.png"));
+    private Image imAcessaMemoriaTipoI  = new Image (new FileInputStream("images/arqmult_e4_tipo_i.png"), 900, 900, true, false);
     // Etapa 4: Acesso à memória, load
-    private Image imAcessaMemoriaLw     = new Image (new FileInputStream("images/arqmult_e4_lw.png"));
+    private Image imAcessaMemoriaLw     = new Image (new FileInputStream("images/arqmult_e4_lw.png"), 900, 900, true, false);
     // Etapa 4: Acesso à memória, store
-    private Image imAcessaMemoriaSw     = new Image (new FileInputStream("images/arqmult_e4_sw.png"));
+    private Image imAcessaMemoriaSw     = new Image (new FileInputStream("images/arqmult_e4_sw.png"), 900, 900, true, false);
     // Etapa 5: Escrevea na memória, load
-    private Image imEscreveMemoriaLw    = new Image (new FileInputStream("images/arqmult_e5_lw.png"));
+    private Image imEscreveMemoriaLw    = new Image (new FileInputStream("images/arqmult_e5_lw.png"), 900, 900, true, false);
     // Etapa final.
-    private Image imAcabou              = new Image (new FileInputStream("images/acabou.png"));
+    private Image imAcabou              = new Image (new FileInputStream("images/acabou.png"), 900, 900, true, false);
 
     private final String busca = "busca";
     private final String decodifica = "decodifica";
