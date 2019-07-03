@@ -104,7 +104,10 @@ public class MaquinaEstados {
                         System.out.println("Estado atual = "+estadoAtual);
                         acabouInst = true;
                         return imEscreveMemoriaLw;
-                        
+                       
+                    
+                
+
             }
         }
         
@@ -120,7 +123,7 @@ public class MaquinaEstados {
            
             } catch (Exception e) {
                 System.out.println("Terminou o programa");
-                estadoAtual = "Acabo saporra";
+                estadoAtual = "Acabo cabo";
                 return imAcabou;
             }
            
