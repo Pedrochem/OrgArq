@@ -25,5 +25,12 @@ public class Registers{
         }
     }
 
+    public void imprimeRegs(){
+        for (int i=0;i<32;i++){
+            System.out.println("Reg["+i+"]: "+reg[i]);
+
+        }
+    }
+
     
 }

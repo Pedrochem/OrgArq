@@ -18,8 +18,10 @@ public class Memory {
         endDataAdress = 199;
         temData = false;
         instructionSize = 0;
+        
 
-	    mem = new String[size];
+        mem = new String[size];
+        preencheMem();
         Scanner f = new Scanner(new File(fileName));
         String line;
         String[] campos;
@@ -66,6 +68,18 @@ public class Memory {
     
     public int getInstructionSize(){
         return instructionSize;
+    }
+
+    public void imprimeMem(){
+        for (int i=100;i<110;i++){
+            System.out.println("Mem["+i+"]: "+mem[i]);
+        }
+    }
+
+    public void preencheMem(){
+        for (int i=100;i<200;i++){
+           mem[i] ="0x"+String.format("%08x", i);
+        }
     }
 
     public String fetch(int pos){

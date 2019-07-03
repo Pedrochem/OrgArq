@@ -18,7 +18,7 @@ public class MaquinaEstados {
     private Image imExecutaLw = new Image (new FileInputStream("images/executaLw.png"));    // ETAPA3
     private Image imAcessaMemoriaLw = new Image (new FileInputStream("images/acessoMemoriaLw.png")); // ETAPA 4
     private Image imAcessaMemoriaSw = new Image (new FileInputStream("images/acessoMemoriaSw.png")); // ETAPA 4
-    private Image imEscreveMemoriaSw= new Image (new FileInputStream("images/escreveMemoriaLw.png"));    // ETAPA 5
+    private Image imEscreveMemoriaLw= new Image (new FileInputStream("images/escreveMemoriaLw.png"));    // ETAPA 5
 
     
 
@@ -99,14 +99,12 @@ public class MaquinaEstados {
                             return imAcessaMemoriaSw;
                     }
                 case acessoMemoria:
-                    System.out.println("erro "+acabouInst);
-                        // acabouInst = controller.escreveMemoria();
-                        // estadoAtual = escreveMemoria;
-                        // System.out.println("Estado atual = "+estadoAtual);
-                        // return imEscreveMemoriaLw;
-                    
-                
-
+                        controller.escreveMemoria();
+                        estadoAtual = escreveMemoria;
+                        System.out.println("Estado atual = "+estadoAtual);
+                        acabouInst = true;
+                        return imEscreveMemoriaLw;
+                        
             }
         }
         

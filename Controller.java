@@ -42,7 +42,7 @@ public class Controller {
         ula = new Ula();
         regs = new Registers();
         mem = new Memory(file);
-        System.out.println("bbbbbbbbbbbb");
+       
         pc=0;
         ulaSaida = "";
         adress = 0;
@@ -53,7 +53,6 @@ public class Controller {
         pcEsc = false;
         zero = false;
 
-        System.out.println("cheguei");
     }
 
 
@@ -84,6 +83,8 @@ public class Controller {
         System.out.println("---------------------------------"); 
         System.out.println("Etapa 1:");
         System.out.println("IR = Mem["+pcAntigo+"] | PC = "+pc + "");
+        regs.imprimeRegs();
+        mem.imprimeMem();
         return false;
     }
 
