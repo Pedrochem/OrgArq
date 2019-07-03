@@ -71,14 +71,17 @@ public class Memory {
     }
 
     public void imprimeMem(){
-        for (int i=100;i<110;i++){
-            System.out.println("Mem["+i+"]: "+mem[i]);
+        for (int i=0;i<200;i++){
+            if(i<100 && !mem[i].equals(String.valueOf(i)))
+                System.out.println("Mem["+i+"]: "+mem[i]);
+            else
+                System.out.println("Mem["+i+"]: 0x"+String.format("%08x", Integer.parseInt(mem[i]))); //"0x"+String.format("%08x", i);
         }
     }
 
     public void preencheMem(){
-        for (int i=100;i<200;i++){
-           mem[i] ="0x"+String.format("%08x", i);
+        for (int i=0;i<200;i++){
+           mem[i] = String.valueOf(i);
         }
     }
 
