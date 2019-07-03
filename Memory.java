@@ -20,7 +20,6 @@ public class Memory {
         instructionSize = 0;
 
 	    mem = new String[size];
-
         Scanner f = new Scanner(new File(fileName));
         String line;
         String[] campos;

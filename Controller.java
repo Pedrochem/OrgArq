@@ -42,6 +42,7 @@ public class Controller {
         ula = new Ula();
         regs = new Registers();
         mem = new Memory(file);
+        System.out.println("bbbbbbbbbbbb");
         pc=0;
         ulaSaida = "";
         adress = 0;
@@ -52,7 +53,7 @@ public class Controller {
         pcEsc = false;
         zero = false;
 
-
+        System.out.println("cheguei");
     }
 
 
@@ -332,21 +333,22 @@ public class Controller {
     }
 
     public void chamaMemoria(){
-        switch (louD) {
-            case "0":
-                adress = pc;    //posMem = adress (??)
-                break;
-            case "1":
-                adress = Integer.parseInt(ulaSaida);
-                break;
         
-
-        }
+    
         if (lerMem){ 
-            posMem = adress;    //GET CONTEUDO ADRRESS (PROBABALY, THEN CHANGE)
-            mdr = Integer.parseInt(mem.fetch(adress));
+            switch (louD) {
+                case "0":
+                    adress = pc;
+                    posMem = adress;     //posMem = adress (??)
+                    break;
+                case "1":
+                    adress = Integer.parseInt(ulaSaida);
+                    mdr = Integer.parseInt(mem.fetch(adress));
+                    break;
+            }
         }
         if (escMem){
+            adress = Integer.parseInt(ulaSaida);
             mem.set(adress, String.valueOf(regB));
             System.out.println("Ae ó, to escrevendo "+String.valueOf(regB)+" na posicao "+adress+" da mem");
         }
