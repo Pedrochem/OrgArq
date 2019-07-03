@@ -53,6 +53,10 @@ public class Controller {
         zero = false;
     }
 
+    /**
+     * Busca a instrução
+     * @return false ao acabar
+     */
     public boolean buscaInstrucao(){
         //ETAPA 1
         if (pc >= mem.getInstructionSize())
@@ -83,11 +87,15 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Decodifica uma instrução
+     * @return False ao acabar
+     */
     public boolean decodificaInstrucao(){
         //ETAPA 2
         ulaOp = "soma";
         ulaFonteB = "11";
-        ulaFonteA = "10"; // Nos slides a ulaFonteA nesse caso eh 00...
+        ulaFonteA = "10";
         chamaUla(); // ALUOut = Branch Adress (Just in case)
 
         regs.setReg(8, 23);
@@ -107,6 +115,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Executa uma instrução (Etapa 3)
+     * @return True ao acabar uma instrução, False caso a instrução utilize mais etapas
+     */
     public boolean executaInstrucao(){
         //ETAPA 3
         System.out.println("---------------------------------");
@@ -176,7 +188,7 @@ public class Controller {
             case "store":
                 ulaOp = "soma";
                 ulaFonteA = "01";
-                ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
+                ulaFonteB = "11";
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
                 regs.imprimeRegs();
@@ -185,7 +197,7 @@ public class Controller {
             case "load":
                 ulaOp = "soma";
                 ulaFonteA = "01";
-                ulaFonteB = "11"; // Nos slides, ulaFonteB nesse caso eh 10...
+                ulaFonteB = "11";
                 chamaUla();
                 System.out.println("Calculando o endereço da memória, UlaOut = "+ulaSaida);
                 regs.imprimeRegs();
@@ -218,6 +230,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Acessa a memória
+     * @return True se a instrução acabou, False caso contrário
+     */
     public boolean acessoMemoria(){
         // ETAPA 4
         System.out.println("---------------------------------");
@@ -263,6 +279,10 @@ public class Controller {
         return false;
     }
 
+    /**
+     * Escreve na memória
+     * @return True ao acabar de executar
+     */
      public boolean escreveMemoria(){
         //ETAPA 5
         System.out.println("---------------------------------");
@@ -277,6 +297,9 @@ public class Controller {
         return true;
     }
 
+    /**
+     * Define PC
+     */
     public void chamaPc(){
         if (pcEsc || (pcEscCond && zero)){
             switch (fontePc) {
@@ -293,6 +316,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Define os registradores
+     */
     public void chamaRegistradores(){
         if (escReg){
             switch (regDest) {
@@ -316,17 +342,23 @@ public class Controller {
         }
     }
 
+    /**
+     * Define o registrador de instruções
+     */
     public void chamaIr(){
         if (irEsc.equals("1"))
             inst = mem.fetch(posMem);
     }
 
+    /**
+     * Chama a memória
+     */
     public void chamaMemoria(){
         if (lerMem){
             switch (louD) {
                 case "0":
                     adress = pc;
-                    posMem = adress;     //posMem = adress (??)
+                    posMem = adress;
                     break;
                 case "1":
                     adress = Integer.parseInt(ulaSaida);
@@ -335,14 +367,16 @@ public class Controller {
             }
         }
         if (escMem){
-
             adress = Integer.parseInt(ulaSaida);
             mem.set(adress, String.valueOf(regB));
-            System.out.println("Ae ó, to escrevendo "+String.valueOf(regB)+" na posicao "+adress+" da mem");
+            System.out.println("Escrevendo " + String.valueOf(regB) + " na posicao " + adress + " da memória");
         }
 
     }
 
+    /**
+     * Chama a ULA
+     */
     public void chamaUla(){
         int src1 = 0;
         int src2 = 0;
@@ -379,6 +413,11 @@ public class Controller {
         else zero = false;
     }
 
+    /**
+     * Decodifica uma instrução
+     * @param instruction Instrução a ser decodificada em binário
+     * @return instrução decodificada
+     */
     public String decode(String instruction) {
         String opcode = instruction.substring(0, 6);
         switch (opcode) {
@@ -412,6 +451,10 @@ public class Controller {
         return "";
     }
 
+    /**
+     * Pega o tipo de uma instrução
+     * @return O tipo da instrução
+     */
     public String getTipo(){
         switch (operation) {
             case "lw":
