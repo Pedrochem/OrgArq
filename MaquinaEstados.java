@@ -6,20 +6,34 @@ import javafx.scene.image.Image;
 public class MaquinaEstados {
     Controller controller;
 
-    private Image imBusca = new Image (new FileInputStream("images/arqmult_e1.png"));
-    private Image imDecodifica = new Image (new FileInputStream("images/arqmult_e2.png"));
-    private Image imExecutaBranch = new Image (new FileInputStream("images/arqmult_e3_beq.png"));
-    private Image imExecutaTipoR = new Image (new FileInputStream("images/arqmult_e3_tipo_r.png"));
-    private Image imExecutaTipoI = new Image (new FileInputStream("images/arqmult_e3_tipo_i.png"));
-    private Image imExecutaJump = new Image (new FileInputStream("images/arqmult_e3_jump.png"));
-    private Image imExecutaSw = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));    // ETAPA3
-    private Image imExecutaLw = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));    // ETAPA3
-    private Image imAcessaMemoriaTipoR = new Image (new FileInputStream("images/arqmult_e4_tipo_r.png"));
-    private Image imAcessaMemoriaTipoI = new Image (new FileInputStream("images/arqmult_e4_tipo_i.png"));
-    private Image imAcessaMemoriaLw = new Image (new FileInputStream("images/arqmult_e4_lw.png")); // ETAPA 4
-    private Image imAcessaMemoriaSw = new Image (new FileInputStream("images/arqmult_e4_sw.png")); // ETAPA 4
-    private Image imEscreveMemoriaLw= new Image (new FileInputStream("images/arqmult_e5_lw.png"));    // ETAPA 5
-    private Image imAcabou = new Image (new FileInputStream("images/acabou.png"));
+    // Etapa 1: Busca
+    private Image imBusca               = new Image (new FileInputStream("images/arqmult_e1.png"));
+    // Etapa 2: Decodifica
+    private Image imDecodifica          = new Image (new FileInputStream("images/arqmult_e2.png"));
+    // Etapa 3: Executa instrução de beq
+    private Image imExecutaBranch       = new Image (new FileInputStream("images/arqmult_e3_beq.png"));
+    // Etapa 3: Executa instrução de Tipo-R
+    private Image imExecutaTipoR        = new Image (new FileInputStream("images/arqmult_e3_tipo_r.png"));
+    // Etapa 3: Executa instrução de Tipo-I
+    private Image imExecutaTipoI        = new Image (new FileInputStream("images/arqmult_e3_tipo_i.png"));
+    // Etapa 3: Executa instrução de salto incondicional
+    private Image imExecutaJump         = new Image (new FileInputStream("images/arqmult_e3_jump.png"));
+    // Etapa 3: Executa instrução de store
+    private Image imExecutaSw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));
+    // Etapa 3: Executa instrução de load
+    private Image imExecutaLw           = new Image (new FileInputStream("images/arqmult_e3_lw_sw.png"));
+    // Etapa 4: Acesso à memória, Tipo-R
+    private Image imAcessaMemoriaTipoR  = new Image (new FileInputStream("images/arqmult_e4_tipo_r.png"));
+    // Etapa 4: Acesso à memória, Tipo-I
+    private Image imAcessaMemoriaTipoI  = new Image (new FileInputStream("images/arqmult_e4_tipo_i.png"));
+    // Etapa 4: Acesso à memória, load
+    private Image imAcessaMemoriaLw     = new Image (new FileInputStream("images/arqmult_e4_lw.png"));
+    // Etapa 4: Acesso à memória, store
+    private Image imAcessaMemoriaSw     = new Image (new FileInputStream("images/arqmult_e4_sw.png"));
+    // Etapa 5: Escrevea na memória, load
+    private Image imEscreveMemoriaLw    = new Image (new FileInputStream("images/arqmult_e5_lw.png"));
+    // Etapa final.
+    private Image imAcabou              = new Image (new FileInputStream("images/acabou.png"));
 
     private final String busca = "busca";
     private final String decodifica = "decodifica";
@@ -36,16 +50,22 @@ public class MaquinaEstados {
         controller = new Controller(arq);
     }
 
+    // @name getImBusca
+    // @return Imagem imBusca
     public Image getImBusca(){
         acabouInst = controller.buscaInstrucao();
         System.out.println("Estado atual = " + estadoAtual);
         return imBusca;
     }
 
+    // @name getEstadoAtual
+    // @return retorna o estado atual da máquina de estados
     public String getEstadoAtual(){
         return estadoAtual;
     }
 
+    // @name getProxEstado
+    // @return próximo estado
     public Image getProxEstado(){
         if (!acabouInst){
             switch (estadoAtual) {
@@ -73,13 +93,11 @@ public class MaquinaEstados {
                             return imExecutaLw;
                         case "store":
                             return imExecutaSw;
-
                     }
                 case executa:
                     acabouInst = controller.acessoMemoria();
                     estadoAtual = acessoMemoria;
                     System.out.println("Estado atual = " + estadoAtual);
-
                     switch (tipo) {
                         case "tipoR":
                             return imAcessaMemoriaTipoR;
@@ -98,7 +116,6 @@ public class MaquinaEstados {
                         return imEscreveMemoriaLw;
             }
         }
-
         else{
             estadoAtual = busca;
             System.out.println("---------------------------------");
@@ -115,5 +132,4 @@ public class MaquinaEstados {
         }
         return imAcabou;
     }
-
 }
