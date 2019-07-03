@@ -32,8 +32,8 @@ public class Tela extends Application {
         window = primaryStage;
 
         // Button 1
-        Label label1 = new Label("Welcome to our mips simulator!");
-        Button button1 = new Button("Choose the .mips file");
+        Label label1 = new Label("Bem-vindo ao nosso simulador MIPS!");
+        Button button1 = new Button("Escolha o arquivo .mips");
         button1.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             File file = fileChooser.showOpenDialog(window);
@@ -43,10 +43,9 @@ public class Tela extends Application {
             } catch (FileNotFoundException e1) {
                 e1.printStackTrace();
             }
-
         });
 
-        //Layout 1 - children laid out in vertical column
+        // Layout 1 - Formatação em coluna vertical
         VBox layout1 = new VBox(20);
         layout1.setAlignment(Pos.CENTER);
         layout1.getChildren().addAll(label1, button1);
@@ -58,34 +57,28 @@ public class Tela extends Application {
     
     public Scene getScene2(String arquivo) throws FileNotFoundException {
         maqEstados = new MaquinaEstados(arquivo);
-        //Creating label
+        // Criando um label
         Label label = new Label("Estado atual: busca");
-        //Taking care of image display
-        selectedImage = new ImageView();   
+        selectedImage = new ImageView();
         selectedImage.setImage(maqEstados.getImBusca());
     
-        //Creating button
-        button = new Button("Next");
+        // Criando o botão
+        button = new Button("Proximo");
 
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(50);
         vbox.getChildren().addAll(label,selectedImage,button);
         
-        
         StackPane layout = new StackPane();
         layout.getChildren().add(vbox);
         
-        //Taking care of button
         button.setOnAction(e -> {
             clock++;
             Image im = maqEstados.getProxEstado();
             selectedImage.setImage(im);
-            label.setText("Estado atual: "+maqEstados.getEstadoAtual());
-        
-            
+            label.setText("Estado atual: " + maqEstados.getEstadoAtual());
         });
-
         scene2 = new Scene(layout, 1200, 800);
         return scene2;
    }
