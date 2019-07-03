@@ -50,22 +50,28 @@ public class MaquinaEstados {
         controller = new Controller(arq);
     }
 
-    // @name getImBusca
-    // @return Imagem imBusca
+    /**
+     * Pega a imagem de busca
+     * @return imagem de busca
+     */
     public Image getImBusca(){
         acabouInst = controller.buscaInstrucao();
         System.out.println("Estado atual = " + estadoAtual);
         return imBusca;
     }
 
-    // @name getEstadoAtual
-    // @return retorna o estado atual da máquina de estados
+    /**
+     * Retorna o estado atual
+     * @return estado atual
+     */
     public String getEstadoAtual(){
         return estadoAtual;
     }
 
-    // @name getProxEstado
-    // @return próximo estado
+    /**
+     * Calcula o próximo estado da máquina de estados
+     * @return imagem do próximo estado
+     */
     public Image getProxEstado(){
         if (!acabouInst){
             switch (estadoAtual) {
